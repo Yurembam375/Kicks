@@ -10,8 +10,8 @@ class AuthflowCubit extends Cubit<AuthflowState> {
       : super(
           (const AuthflowState(status: Status.initial)),
         ) {
-    // authCheck();
-    authFw();
+    authCheck();
+    // authFw();
   }
 
   authCheck() async {
@@ -21,8 +21,9 @@ class AuthflowCubit extends Cubit<AuthflowState> {
     if (status != null && status == true) {
       FirebaseAuth.instance.authStateChanges().listen((user) {
         if (user != null) {
-        } else {
           emit(const AuthflowState(status: Status.login));
+        } else {
+          emit(const AuthflowState(status: Status.logout));
         }
       });
     } else {
@@ -33,7 +34,7 @@ class AuthflowCubit extends Cubit<AuthflowState> {
   Future<void> signOut() async {
     await FirebaseAuth.instance.signOut().then((value) async {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.clear();
+      prefs.remove("accountStatus");
       emit(const AuthflowState(status: Status.logout));
     });
   }
@@ -46,5 +47,11 @@ class AuthflowCubit extends Cubit<AuthflowState> {
         emit(const AuthflowState(status: Status.logout));
       }
     });
+  }
+
+  signin() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool("accountStatus", true);
+    emit(const AuthflowState(status: Status.login));
   }
 }

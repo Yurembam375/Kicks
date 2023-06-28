@@ -33,14 +33,18 @@ class _SignupPageState extends State<SignupPage> {
           email: emailController.text.trim(),
           password: passwordController.text.trim(),
         )
-            .whenComplete(() async {
-          SharedPreferences sp = await SharedPreferences.getInstance();
-          EasyLoading.showSuccess(
-              "Account Created...");
-          await sp
-              .setBool("accountStatus", false).then((value) => context.router.replace(const AuthFlowpage()));
-              
+            .then((user) {
+          EasyLoading.showSuccess("Account Created...");
+         saveUser();
         });
+        //     .whenComplete(() async {
+        //   SharedPreferences sp = await SharedPreferences.getInstance();
+        //   EasyLoading.showSuccess(
+        //       "Account Created...");
+        //   await sp
+        //       .setBool("accountStatus", false).then((value) => context.router.replace(const AuthFlowpage()));
+
+        // });
       } on FirebaseAuthException catch (e) {
         if (e.code == "weak-password") {
           EasyLoading.showError(e.code);
@@ -69,6 +73,25 @@ class _SignupPageState extends State<SignupPage> {
     }
   }
 
+ // Obtain shared preferences.
+  Future<void> saveUser() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    await prefs.setString('email', emailController.text);
+    await prefs.setBool("accountStatus", false);
+    //  var status =  prefs.getBool("accountStatus");
+
+    //  EasyLoading.show(status: status.toString());
+    // ignore: use_build_context_synchronously
+    context.router.replace(const AuthFlowpage());
+  }
+
+  clearSp() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.clear();
+    EasyLoading.dismiss();
+  }
+
   bool passwordConfirmed() {
     if (passwordController.text.trim() == passwordController2.text.trim()) {
       return true;
@@ -79,7 +102,6 @@ class _SignupPageState extends State<SignupPage> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     passwordController.clear();
     passwordController2.clear();
     emailController.clear();
@@ -90,7 +112,7 @@ class _SignupPageState extends State<SignupPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: Colors.grey[300],
+      backgroundColor: Colors.grey[100],
       body: SingleChildScrollView(
         child: SafeArea(
             child: Padding(
@@ -268,18 +290,14 @@ class _SignupPageState extends State<SignupPage> {
                       height: 50,
                       width: double.infinity,
                       child: ElevatedButton(
-                        onPressed: () {
-                          // if (_formKey.currentState!.validate()) {
-                          //   // context.router.push(const SignupRoute());
-                          // } else {
-                          //   EasyLoading.showError("Pless fill up The Form");
-                          // }
-                          // //  context.router.push( const SignupRoute());
-                          createAccount();
-                          // .then((value){
-                          //   log(value);
-                          // }
-                          // );
+                        onPressed: () async {
+                          // clearSp();
+                          if (_formKey.currentState!.validate()) {
+                            // context.router.push(const SignupRoute());
+                            createAccount();
+                          } else {
+                            EasyLoading.showError("Pless fill up The Form");
+                          }
                         },
                         style: const ButtonStyle(
                             backgroundColor:

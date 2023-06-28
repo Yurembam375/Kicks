@@ -1,12 +1,17 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:auto_route/auto_route.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:sneaker_app/Router/router.gr.dart';
 
 import 'package:sneaker_app/widgets/squareTile.dart';
+
+import '../../../core/cubit/authflow_cubit.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -16,10 +21,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final TextEditingController emailController =
-      TextEditingController(text: "tomtomyurembam@gmail.com");
-  final TextEditingController passwordController =
-      TextEditingController(text: "sanatomba");
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
   bool isVisible = false;
 
   final _formKey = GlobalKey<FormState>();
@@ -34,10 +37,9 @@ class _LoginPageState extends State<LoginPage> {
       )
           .whenComplete(() async {
         EasyLoading.showSuccess("Login Sucessfull");
+
         final SharedPreferences prefs = await SharedPreferences.getInstance();
-        prefs.setBool("accountStatus", true).then((value) {
-          context.router.replace( const AuthFlowpage());
-        });
+        await prefs.setBool("accountStatus", true);
       });
     } on FirebaseAuthException catch (e) {
       EasyLoading.showError(e.code);
@@ -71,7 +73,6 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   void initState() {
-
     initial();
     super.initState();
   }
@@ -242,9 +243,22 @@ class _LoginPageState extends State<LoginPage> {
                           height: 50,
                           width: double.infinity,
                           child: ElevatedButton(
-                            onPressed: () {
+                            onPressed: () async {
                               if (_formKey.currentState!.validate()) {
-                                signin();
+                                await FirebaseAuth.instance
+                                    .signInWithEmailAndPassword(
+                                  email: emailController.text.trim(),
+                                  password: passwordController.text.trim(),
+                                )
+                                    .whenComplete(() async {
+                                  final SharedPreferences prefs =
+                                      await SharedPreferences.getInstance();
+                                  await prefs
+                                      .setBool("accountStatus", true)
+                                      .then((value) => context
+                                          .read<AuthflowCubit>()
+                                          .authFw());
+                                });
                               } else {
                                 EasyLoading.showError("Pless fill up The Form");
                               }

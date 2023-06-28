@@ -1,8 +1,30 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sneaker_app/core/cubit/authflow_cubit.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
+
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  String? email;
+  @override
+  void initState() {
+    // TODO: implement initState
+    getUser();
+    super.initState();
+  }
+
+  getUser() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    email = prefs.getString('email');
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -12,17 +34,17 @@ class ProfilePage extends StatelessWidget {
         title: const Center(
           child: Text(
             "Profile",
-            style: TextStyle(color: Colors.black, fontSize: 23),
+            style: TextStyle(color: Colors.black, fontSize:15,fontWeight: FontWeight.bold),
           ),
         ),
         backgroundColor: Colors.grey[100],
         elevation: 0,
       ),
-      body: SingleChildScrollView(  
+      body: SingleChildScrollView(
         child: Column(
           children: [
             Padding(
-              padding:  const EdgeInsets.fromLTRB(0,40,0,0),
+              padding: const EdgeInsets.fromLTRB(0, 40, 0, 0),
               child: Center(
                 child: Column(children: [
                   Stack(
@@ -32,10 +54,9 @@ class ProfilePage extends StatelessWidget {
                         height: 120,
                         child: Container(
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
-                            color: Colors.white,
-                          border: Border.all(color: Colors.black)
-                          ),
+                              borderRadius: BorderRadius.circular(100),
+                              color: Colors.white,
+                              border: Border.all(color: Colors.black)),
                           child: const Image(
                             image: AssetImage("assets/image/jordan.png"),
                           ),
@@ -52,7 +73,7 @@ class ProfilePage extends StatelessWidget {
                             color: Colors.black,
                           ),
                           child: const Icon(
-                          CupertinoIcons.camera,
+                            CupertinoIcons.camera,
                             size: 20.0,
                             color: Colors.white,
                           ),
@@ -61,14 +82,15 @@ class ProfilePage extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 10),
-                  const Text(
-                   "tomtomyurembam@gmail.com",style: TextStyle(color: Colors.black,fontSize: 15),
+                  Text(
+                    email ?? '',
+                    style: const TextStyle(color: Colors.black, fontSize: 15),
                   ),
-                  const SizedBox(height: 10),
+                 // const SizedBox(height: 10),
                   // const Text(
                   //   "Password",style: TextStyle(color: Colors.black,fontSize: 15),
                   // ),
-                  const SizedBox(height: 20),
+                 // const SizedBox(height: 20),
                   SizedBox(
                     width: 200,
                     child: ElevatedButton(
@@ -89,72 +111,175 @@ class ProfilePage extends StatelessWidget {
                 ]),
               ),
             ),
-             const SizedBox(height: 20),
-                  ListTile(
-                    leading: IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.settings,
-                        color: Colors.black,
-                      ),
-                    ),
+            const SizedBox(height: 5),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+            //   children: [
+            //     Container(
+            //       decoration:
+            //           BoxDecoration(border: Border.all(color: Colors.black)),
+            //       height: 35,
+            //       width: 160,
+            //       child: MaterialButton(
+            //         animationDuration: const Duration(milliseconds: 3),
+            //         highlightColor: Colors.grey,
+            //         splashColor: Colors.grey,
+            //         onPressed: () {},
+            //         child: Row(
+            //           mainAxisAlignment: MainAxisAlignment.center,
+            //           children: const [
+                      
+            //             Text("Your Order")
+            //           ],
+            //         ),
+            //       ),
+            //     ),
+            //     Container(
+            //       decoration: BoxDecoration(
+            //           color: Colors.redAccent,
+            //           border: Border.all(color: Colors.redAccent)),
+            //       height: 35,
+            //       width: 160,
+            //       child: MaterialButton(
+            //         animationDuration: const Duration(milliseconds: 3),
 
-                    title: const Text("Setting",
-                        style: TextStyle(color: Colors.black)),
-                  ),
-                  ListTile(
-                    leading: IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.error_outline_rounded,
-                        color: Colors.black,
-                      ),
+            //         highlightColor: Colors.white,
+            //         splashColor: Colors.redAccent,
+            //         //
+            //         onPressed: () {},
+            //         child: Row(
+            //           mainAxisAlignment: MainAxisAlignment.center,
+            //           children: const [
+            //             Icon(
+            //               CupertinoIcons.bag,
+            //               color: Colors.white,
+            //               size: 17,
+            //             ),
+            //             Text(
+            //               "   Buy Again",
+            //               style: TextStyle(color: Colors.white),
+            //             )
+            //           ],
+            //         ),
+            //       ),
+            //     )
+            //   ],
+            // ),
+              ListTile(
+              leading: IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.done_rounded,
+                  color: Colors.black,
+                ),
+              ),
+              title:
+                  const Text("Your Oder", style: TextStyle(color: Colors.black)),
+            ),  ListTile(
+              leading: IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  CupertinoIcons.bag,
+                  color: Colors.black,
+                ),
+              ),
+              title:
+                  const Text("Buy Again", style: TextStyle(color: Colors.black)),
+            ),
+            ListTile(
+              leading: IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.settings,
+                  color: Colors.black,
+                ),
+              ),
+              title:
+                  const Text("Setting", style: TextStyle(color: Colors.black)),
+            ),
+            ListTile(
+              leading: IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.error_outline_rounded,
+                  color: Colors.black,
+                ),
+              ),
+              title: const Text("About", style: TextStyle(color: Colors.black)),
+            ),
+            ListTile(
+              leading: IconButton(
+                onPressed: () {
+                  //  signout();
+                },
+                icon: const Icon(
+                  Icons.message_outlined,
+                  color: Colors.black,
+                ),
+              ),
+              title: const Text("Feed Back",
+                  style: TextStyle(color: Colors.black)),
+            ),
+            ListTile(
+              leading: IconButton(
+                onPressed: () {
+                  //  signout();
+                },
+                icon: const Icon(
+                  Icons.call,
+                  color: Colors.black,
+                ),
+              ),
+              title: const Text("Help Center",
+                  style: TextStyle(color: Colors.black)),
+            ),
+            ListTile(
+              leading: IconButton(
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: const Text("Log out of your account?"),
+                      actions: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: const Text(
+                                  "No",
+                                  style: TextStyle(color: Colors.black),
+                                )),
+                            TextButton(
+                              onPressed: () {
+                                context
+                                    .read<AuthflowCubit>()
+                                    .signOut()
+                                    .then((value) => Navigator.pop(context));
+                              },
+                              child: const Text(
+                                "Log Out",
+                                style: TextStyle(color: Colors.red),
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
                     ),
-                    title: const Text("About",
-                        style: TextStyle(color: Colors.black)),
-                  ),
-                   ListTile(
-                    leading: IconButton(
-                      onPressed: () {
-                      //  signout();
-                      },
-                      icon: const Icon(
-                        Icons.message_outlined,
-                        color: Colors.black,
-                      ),
-                    ),
-                    title: const Text("Feed Back",
-                        style: TextStyle(color: Colors.black)),
-                  ),
-                   ListTile(
-                    leading: IconButton(
-                      onPressed: () {
-                      //  signout();
-                      },
-                      icon: const Icon(
-                        Icons.call,
-                        color: Colors.black,
-                      ),
-                    ),
-                    title: const Text("Help Center",
-                        style: TextStyle(color: Colors.black)),
-                  ),
-                  ListTile(
-                    leading: IconButton(
-                      onPressed: () {
-                      //  signout();
-                      },
-                      icon: const Icon(
-                        Icons.logout,
-                        color: Colors.black,
-                      ),
-                    ),
-                    title: const Text("Log out",
-                        style: TextStyle(color: Colors.black)),
-                  ),
+                  );
+                },
+                icon: const Icon(
+                  Icons.logout,
+                  color: Colors.black,
+                ),
+              ),
+              title:
+                  const Text("Log out", style: TextStyle(color: Colors.black)),
+            ),
           ],
         ),
-        
       ),
     );
   }

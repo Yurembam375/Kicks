@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -17,23 +16,6 @@ class DashboardPage extends StatefulWidget {
 class _DashboardPageState extends State<DashboardPage> {
   @override
   Widget build(BuildContext context) {
-
-final CollectionReference users = FirebaseFirestore.instance.collection('kicks');
-// Future<void> getUsers() async {
-//   try {
-//     QuerySnapshot querySnapshot = await users.get();
-//     for (var doc in querySnapshot.docs) {
-//       print(doc.data());
-//     }
-//   } catch (e) {
-//     print("Failed to get users: $e");
-//   }
-// }
-@override
-  void initState() {
-    // getUsers();
-    super.initState();
-  }
 
     return AutoTabsRouter(
       // list of your tab routes
@@ -73,7 +55,7 @@ final CollectionReference users = FirebaseFirestore.instance.collection('kicks')
               ),
               CustomNavigationBarItem(icon: const Icon(CupertinoIcons.tags)),
               CustomNavigationBarItem(
-                icon: const Icon(CupertinoIcons.shopping_cart),
+                icon: const Icon(CupertinoIcons.bag),
               ),
               CustomNavigationBarItem(
                 icon: const Icon(CupertinoIcons.person),

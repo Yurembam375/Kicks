@@ -1,4 +1,6 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:sneaker_app/Router/router.gr.dart';
 import 'package:sneaker_app/src/example_module/data/app_data.dart';
 
 import '../../../model/categories.dart';
@@ -14,29 +16,40 @@ class BrandPage extends StatelessWidget {
         title: const Center(
           child: Text(
             "All Brand",
-            style: TextStyle(color: Colors.black, fontSize: 23),
+          style: TextStyle(color: Colors.black, fontSize:15,fontWeight: FontWeight.bold),
           ),
         ),
         backgroundColor: Colors.grey[100],
         elevation: 0,
       ),
-      body: GridView.builder(
-        physics: const BouncingScrollPhysics(),
-        primary: false,
-        itemCount: categories.length,
-        shrinkWrap: true,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            mainAxisSpacing: 10, crossAxisCount: 3),
-        itemBuilder: (context, index) {
-          CategoriesModel current = categories[index];
-          return Card(
-            color: Colors.grey[200],
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Image.asset(current.imgUrl),
-            ),
-          );
-        },
+      body: Padding(
+        padding: const EdgeInsets.all(5),
+        child: GridView.builder(
+          physics: const BouncingScrollPhysics(),
+          primary: false,
+          itemCount: categories.length,
+          shrinkWrap: true,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              mainAxisSpacing: 3, crossAxisCount: 3,crossAxisSpacing: 2),
+          itemBuilder: (context, index) {
+            CategoriesModel current = categories[index];
+            return GestureDetector(
+              onTap: () {
+                context.router.push( BrandDetailsRoute(tittle: current.tittle));
+              },
+              child: Container(
+                decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.grey[100],
+              border: Border.all(color: Colors.grey.withOpacity(0.5))),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Image.asset(current.imgUrl),
+                ),
+              ),
+            );
+          },
+        ),
       ),
     );
   }
