@@ -1,21 +1,22 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:sneaker_app/Utility/logger.dart';
 
 class WishListCard extends StatelessWidget {
   final String label;
   final String price;
   final String imgurl;
   final String brand;
-  final int index;
+  final VoidCallback onpressdelete;
+  
+ 
   const WishListCard(
       {super.key,
       required this.label,
       required this.price,
       required this.imgurl,
-      required this.brand,
-      required this.index});
+      required this.brand, required this.onpressdelete,
+   });
 
   Future<void> deleteproduct() async {
     // Get a reference to the Firestore document
@@ -30,11 +31,11 @@ class WishListCard extends StatelessWidget {
       // Get the 'shoes' array from the snapshot data
       List<dynamic> shoes = snapshot.get('shoes');
 
-      // Find the index of the product in the list based on the productId
-      // int index = shoes.indexWhere((shoe) {
-      //   return shoe['is_favorite'] == true;
-      // });
-  
+    //  Find the index of the product in the list based on the productId
+      int index = shoes.indexWhere((shoe) {
+        return shoe['is_favorite'] == true;
+      });
+
       if (index != -1) {
         // Update the 'is_favorite' field for the specific product
         shoes[index]['is_favorite'] = false;
@@ -63,6 +64,19 @@ class WishListCard extends StatelessWidget {
         return shoe['is_favorite'] == true;
       });
 
+      // shoes.map((e) {
+      //   if (e["is_favorite"] == true) {
+      //     log(e.toString());
+      //     var d = shoes.indexOf(e);
+      //     log(d.toString());
+      //   //  e["is_favorite"][d] == false;
+      //   if(d == e["is_favorite"]){
+      //     shoes[e]["is_favorite"]= false;
+      //   }
+      //   }
+      // }).toList();
+
+      // await documentReference.update({"shoes": shoes});
       if (index != -1) {
         // Update the 'is_favorite' field for the specific product
         //shoes[index]['is_favorite'] = false;
@@ -93,9 +107,10 @@ class WishListCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   IconButton(
-                    onPressed: () async {
-                      await deleteproduct();
-                    },
+                    // onPressed: () async {
+                    //   await deleteproduct();
+                    // },
+                    onPressed: onpressdelete,
                     icon: Container(
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
@@ -179,14 +194,16 @@ class WishListCard extends StatelessWidget {
                         bottomRight: Radius.circular(7)),
                     border: Border.all(color: Colors.black)),
                 height: 35,
-                width: 170,
+                width: double.infinity,
                 child: MaterialButton(
                   animationDuration: const Duration(milliseconds: 3),
                   highlightColor: Colors.grey,
                   splashColor: Colors.grey,
                   onPressed: () async {
-                    logger.d(index);
-                    await movetoBag().whenComplete(() => deleteproduct());
+                   
+                    // logger.d(index);
+                   await movetoBag().whenComplete(() => deleteproduct());
+                    // movetoBag();
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,

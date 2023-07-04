@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sneaker_app/widgets/wishlistWidget.dart';
 import 'package:badges/badges.dart' as badges;
+import 'package:sneaker_app/widgets/wislistnosItem.dart';
 
 class WishlistPage extends StatefulWidget {
   const WishlistPage({super.key});
@@ -12,6 +13,7 @@ class WishlistPage extends StatefulWidget {
 
 class _WishlistPageState extends State<WishlistPage> {
   //List<Map<String, dynamic>> favoriteShoes = favoriteShoes;
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,12 +29,14 @@ class _WishlistPageState extends State<WishlistPage> {
             ),
           ),
           title: Column(
-            children: const [
+            mainAxisAlignment: MainAxisAlignment.start,
+            children:   const [
               Text(
                 "Wishlist",
                 style: TextStyle(color: Colors.black,fontSize: 15,fontWeight: FontWeight.bold ),
               ),
              // Text()
+            WishlistnoItem()
             ],
           ),
           actions: [

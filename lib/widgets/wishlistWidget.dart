@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:sneaker_app/widgets/wishlistCard.dart';
@@ -85,7 +86,10 @@ class WishlistWidget extends StatelessWidget {
                   price: shoe["price"].toString(),
                   imgurl: shoe["img_url"],
                   brand: shoe["brand"],
-                  index: favoriteShoes.indexOf(shoe),
+                  onpressdelete: () {
+                    log(snapshot.data.toString());
+                  },
+                  // index: favoriteShoes.indexOf(shoe),
                 );
               },
             );

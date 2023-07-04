@@ -51,46 +51,6 @@ class ShoeWidget extends StatelessWidget {
                   imageUrl: d[0]['shoes'][i]["img_url"],
                   brand: d[0]['shoes'][i]["brand"],
                   onPressed: () async {
-                    // if (d[0]['shoes'][i]["is_favorite"] == true) {
-                    //   var shoes = d[0]['shoes'] as List;
-                    //   var m =
-                    //       shoes.map((e) => e as Map<String, dynamic>).toList();
-                    //   int index = m.indexWhere((shoes) {
-                    //     return shoes['is_favorite'] == true;
-                    //   });
-                    //   if (index != -1) {
-                    //     shoes[index]["is_favorite"] = false;
-
-                    //     DocumentReference documentReference = FirebaseFirestore
-                    //         .instance
-                    //         .collection('kicks')
-                    //         .doc("UXzRvkNy7FG36Gzl941r");
-
-                    //     // Update the document in Firestore
-                    //     await documentReference.update({'shoes': m});
-                    //   }
-                    // } else {
-                    //   logger.wtf("false");
-                    //     var shoes = d[0]['shoes'] as List;
-                    //   var n =
-                    //       shoes.map((e) => e as Map<String, dynamic>).toList();
-                    //   int index = n.indexWhere((shoes) {
-                    //     return shoes['is_favorite'] == false;
-
-                    //   });   if (index != -1) {
-                    //     shoes[index]["is_favorite"] = true;
-
-                    //     DocumentReference documentReference = FirebaseFirestore
-                    //         .instance
-                    //         .collection('kicks')
-                    //         .doc("UXzRvkNy7FG36Gzl941r");
-
-                    //     // Update the document in Firestore
-                    //     await documentReference.update({'shoes': n});
-                    //   }
-
-                    // }
-
                     var shoes = d[0]['shoes'] as List;
                     var n =
                         shoes.map((e) => e as Map<String, dynamic>).toList();
