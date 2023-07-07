@@ -36,14 +36,19 @@ class WishlistnoItem extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           List<Map<String, dynamic>> favoriteShoes = snapshot.data!;
-          return Text(
-           "${favoriteShoes.length.toString()} Items" ,
-            style: const TextStyle(
-              color: Colors.black54,
-              fontSize: 12.5,
-            ),
-            maxLines: 1,
-          );
+          if (favoriteShoes.isEmpty) {
+            return Container();
+          } else {
+            return Text(
+              "${favoriteShoes.length.toString()} Items",
+              style: const TextStyle(
+                color: Colors.black54,
+                fontSize: 12.5,
+              ),
+              maxLines: 1,
+            );
+          }
+
           //  },
           //   );
 

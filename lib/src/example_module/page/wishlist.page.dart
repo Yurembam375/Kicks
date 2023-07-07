@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sneaker_app/widgets/badgeCartno.dart';
 import 'package:sneaker_app/widgets/wishlistWidget.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:sneaker_app/widgets/wislistnosItem.dart';
@@ -13,7 +14,7 @@ class WishlistPage extends StatefulWidget {
 
 class _WishlistPageState extends State<WishlistPage> {
   //List<Map<String, dynamic>> favoriteShoes = favoriteShoes;
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,38 +29,26 @@ class _WishlistPageState extends State<WishlistPage> {
               color: Colors.black,
             ),
           ),
-          title: Column(
+          title: Row(
             mainAxisAlignment: MainAxisAlignment.start,
-            children:   const [
-              Text(
-                "Wishlist",
-                style: TextStyle(color: Colors.black,fontSize: 15,fontWeight: FontWeight.bold ),
+            children: [
+              Column(
+                children: const [
+                  Text(
+                    "Wishlist",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  // Text()
+                  WishlistnoItem()
+                ],
               ),
-             // Text()
-            WishlistnoItem()
             ],
           ),
           actions: [
-            badges.Badge(
-                position: badges.BadgePosition.topEnd(top: 3, end: 7),
-                badgeStyle: badges.BadgeStyle(
-                    badgeColor: Colors.red,
-                    elevation: 0,
-                    padding: const EdgeInsets.all(5),
-                    borderRadius: BorderRadius.circular(4)),
-                badgeContent: const Text(
-                  "3",
-                  style: TextStyle(color: Colors.white, fontSize: 12),
-                ),
-                child: IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    CupertinoIcons.bag,
-                    color: Colors.black,
-                  ),
-                ) // IconButton(
-
-                ),
+            const BadgeCartno(),
             badges.Badge(
               position: badges.BadgePosition.topEnd(top: 3, end: 7),
               badgeStyle: badges.BadgeStyle(

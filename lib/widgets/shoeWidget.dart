@@ -41,7 +41,8 @@ class ShoeWidget extends StatelessWidget {
                     discription: d[0]['shoes'][i]["description"],
                     label: d[0]['shoes'][i]["label"],
                     price: d[0]['shoes'][i]["price"].toString(),
-                    imageUrl: d[0]['shoes'][i]["img_url"],
+                    imageUrl: d[0]['shoes'][i]["img_url"], seller: d[0]['shoes'][i]["seller"],
+                    size: d[0]['shoes'][i]["size"]
                   ));
                 },
                 child: ProductCard(

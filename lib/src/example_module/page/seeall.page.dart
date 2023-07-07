@@ -92,56 +92,6 @@ class _SeeallPageState extends State<SeeallPage> {
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Column(
             children: [
-              // Padding(
-              //   padding: const EdgeInsets.symmetric(horizontal: 10),
-              //   child: SizedBox(
-              //     height: 30,
-              //     width: double.infinity,
-              //     child: ListView.builder(
-              //       itemCount: categories.length,
-              //       scrollDirection: Axis.horizontal,
-              //       itemBuilder: (context, index) {
-              //         CategoriesModel current = categories[index];
-              //         return GestureDetector(
-              //           onTap: () {
-              //             setState(() {
-              //               tabindex = index;
-              //             });
-              //           },
-              //           child: Padding(
-              //             padding: const EdgeInsets.all(3),
-              //             child: Container(
-              //               height: 30,
-              //               width: 100,
-              //               decoration: BoxDecoration(
-              //                   shape: BoxShape.rectangle,
-              //                   color: index == tabindex
-              //                       ? Colors.black
-              //                       : Colors.grey[100],
-              //                   border: Border.all(
-              //                       color: Colors.grey.withOpacity(0.5)),
-              //                   borderRadius:
-              //                       const BorderRadius.all(Radius.circular(7))),
-              //               child: Center(
-              //                 child: Text(
-              //                   current.tittle,
-              //                   style: TextStyle(
-              //                     color: index == tabindex
-              //                         ? Colors.grey[100]
-              //                         : Colors.black,
-              //                   ),
-              //                 ),
-              //               ),
-              //             ),
-              //           ),
-              //         );
-              //       },
-              //     ),
-              //   ),
-              // ),
-              // const SizedBox(
-              //   height: 10,
-              // ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 13),
                 child: Row(

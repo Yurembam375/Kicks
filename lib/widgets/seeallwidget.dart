@@ -34,12 +34,13 @@ class SeeAllwidget extends StatelessWidget {
                 return GestureDetector(
                   onTap: () {
                     context.router.push(DetailsRoute(
-                      brand: d[0]['shoes'][i]["brand"],
-                      discription: d[0]['shoes'][i]["description"],
-                      label: d[0]['shoes'][i]["label"],
-                      price: d[0]['shoes'][i]["price"].toString(),
-                      imageUrl: d[0]['shoes'][i]["img_url"],
-                    ));
+                        brand: d[0]['shoes'][i]["brand"],
+                        discription: d[0]['shoes'][i]["description"],
+                        label: d[0]['shoes'][i]["label"],
+                        price: d[0]['shoes'][i]["price"].toString(),
+                        imageUrl: d[0]['shoes'][i]["img_url"],
+                        seller: d[0]['shoes'][i]["seller"],
+                        size: d[0]['shoes'][i]["size"]));
                   },
                   child: ProductCard(
                     label: d[0]['shoes'][i]["label"],

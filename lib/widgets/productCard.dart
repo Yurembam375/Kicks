@@ -35,28 +35,24 @@ class ProductCard extends StatelessWidget {
         children: [
           Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 3),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    //const Text("Addidas",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
-                    InkWell(
-                      onTap: onPressed,
-                      child: is_favorite
-                          ? Icon(
-                              Icons.favorite,
-                              color: Colors.pink.withOpacity(1.0),
-                              size: 20,
-                            )
-                          : Icon(
-                              Icons.favorite_border,
-                              color: Colors.black.withOpacity(0.4),
-                              size: 20,
-                            ),
-                    ),
-                  ],
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  IconButton(
+                    onPressed: onPressed,
+                    icon: is_favorite
+                        ? Icon(
+                            Icons.favorite,
+                            color: Colors.pink.withOpacity(1.0),
+                            size: 20,
+                          )
+                        : Icon(
+                            Icons.favorite_border,
+                            color: Colors.black.withOpacity(0.4),
+                            size: 20,
+                          ),
+                  )
+                ],
               ),
               CachedNetworkImage(
                 imageUrl: imageUrl,

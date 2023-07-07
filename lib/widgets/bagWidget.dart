@@ -43,34 +43,32 @@ class BagWidget extends StatelessWidget {
           if (bagshoes.isEmpty) {
             return Center(
               child: Container(
-            color: Colors.grey[100],
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset(
-                  "assets/image/emptywish.png",
-                  color: Colors.black,
+                color: Colors.grey[100],
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      "assets/image/emptywish.png",
+                      color: Colors.black,
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    const Text(
+                      "Your Wishlist is empty",
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    const Text("Explor more and shortlist some items",
+                        style: TextStyle(fontSize: 15, color: Colors.grey))
+                  ],
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
-                const Text(
-                  "Your Wishlist is empty",
-                  style:
-                      TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                const Text("Explor more and shortlist some items",
-                    style: TextStyle(fontSize: 15, color: Colors.grey))
-              ],
-            ),
-          ),
-          );
-          }
-          else
-          {
+              ),
+            );
+          } else {
             return ListView.builder(
               physics: const BouncingScrollPhysics(),
               primary: false,
@@ -80,10 +78,14 @@ class BagWidget extends StatelessWidget {
                 Map<String, dynamic> shoe = bagshoes[i];
                 // Build your UI for each shoe item
                 return BagCard(
-                    label: shoe["label"],
-                    imgurl: shoe["img_url"],
-                    brand: shoe["brand"],
-                    price: shoe["price"].toString());
+                  label: shoe["label"],
+                  imgurl: shoe["img_url"],
+                  brand: shoe["brand"],
+                  price: shoe["price"].toString(),
+                  shoe: shoe, seller: shoe["seller"],
+                  qty: shoe["qty"],
+                  size: shoe["size"],
+                );
               },
             );
           }

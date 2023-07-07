@@ -13,14 +13,6 @@ import 'package:sneaker_app/src/example_module/data/app_data.dart';
 import 'package:sneaker_app/widgets/shoeWidget.dart';
 import 'package:badges/badges.dart' as badges;
 
-// class HomePage extends StatefulWidget {
-//   const HomePage({super.key});
-
-//   @override
-//   State<HomePage> createState() => _HomePageState();
-// }
-
-// class _HomePageState extends State<HomePage> {
 
 //   int _currentPage = 0;
 //   @override

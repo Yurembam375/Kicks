@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:badges/badges.dart' as badges;
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:sneaker_app/widgets/badgeCartno.dart';
 
 class DetailsPage extends StatefulWidget {
   final String label;
@@ -10,6 +10,8 @@ class DetailsPage extends StatefulWidget {
   final String discription;
   final String price;
   final String imageUrl;
+  final String seller;
+  final List<dynamic> size;
 
   const DetailsPage({
     super.key,
@@ -17,7 +19,7 @@ class DetailsPage extends StatefulWidget {
     required this.brand,
     required this.discription,
     required this.price,
-    required this.imageUrl,
+    required this.imageUrl, required this.seller, required this.size,
   });
 
   @override
@@ -28,9 +30,30 @@ class _DetailsPageState extends State<DetailsPage> {
   //final List<Map<String, dynamic>> data;
   final _controller = PageController();
 
-  List size = [6, 7, 8, 9, 10, 11, 12];
+  // List size = [6, 7, 8, 9, 10, 11, 12];
 
   int tabindex = 0;
+  // Future<void> movetoBag() async {
+  //   // Get a reference to the Firestore document
+  //   DocumentReference documentReference = FirebaseFirestore.instance
+  //       .collection('kicks')
+  //       .doc("QzxblNC94G66oEoPteQ1");
+
+  //   // Retrieve the document snapshot
+  //   DocumentSnapshot snapshot = await documentReference.get();
+
+  //   if (snapshot.exists) {
+  //     // Get the 'shoes' array from the snapshot data
+  //     List<dynamic> shoes = snapshot.get('shoes');
+  //     for (var element in shoes) {
+  //       if (element["product_Id"] == shoe["product_Id"]) {
+  //         int productindex = shoes.indexOf(element);
+  //         shoes[productindex]['add_to_bag'] = true;
+  //         await documentReference.update({'shoes': shoes});
+  //       }
+  //     }
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -86,26 +109,7 @@ class _DetailsPageState extends State<DetailsPage> {
                       Icons.favorite_border,
                       color: Colors.black,
                     )),
-                badges.Badge(
-                    position: badges.BadgePosition.topEnd(top: 3, end: 7),
-                    badgeStyle: badges.BadgeStyle(
-                        badgeColor: Colors.red,
-                        elevation: 0,
-                        padding: const EdgeInsets.all(5),
-                        borderRadius: BorderRadius.circular(4)),
-                    badgeContent: const Text(
-                      "3",
-                      style: TextStyle(color: Colors.white, fontSize: 12),
-                    ),
-                    child: IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        CupertinoIcons.bag,
-                        color: Colors.black,
-                      ),
-                    ) // IconButton(
-
-                    ),
+           const BadgeCartno()
               ],
             ),
           )
@@ -372,7 +376,7 @@ class _DetailsPageState extends State<DetailsPage> {
                       width: double.infinity,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        itemCount: size.length,
+                        itemCount: widget.size.length,
                         itemBuilder: (context, index) {
                           return GestureDetector(
                             onTap: () {
@@ -393,7 +397,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                     border: Border.all(color: Colors.black)),
                                 child: Center(
                                   child: Text(
-                                    size[index].toString(),
+                                    widget.size[index].toString(),
                                     style: TextStyle(
                                       color: index == tabindex
                                           ? Colors.white
@@ -406,6 +410,8 @@ class _DetailsPageState extends State<DetailsPage> {
                           );
                         },
                       )),
+
+                      //Size widget
                   Row(
                     children: [
                       Text(
@@ -436,14 +442,14 @@ class _DetailsPageState extends State<DetailsPage> {
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    children: const [
-                      Text(
+                    children:  [
+                      const Text(
                         "Seller: ",
                         style: TextStyle(color: Colors.black54, fontSize: 12.5),
                       ),
                       Text(
-                        "Leopold Foodwear India LLP",
-                        style: TextStyle(
+                        widget.seller,
+                        style: const TextStyle(
                             color: Colors.redAccent,
                             fontWeight: FontWeight.bold,
                             fontSize: 13),
@@ -915,7 +921,9 @@ class _DetailsPageState extends State<DetailsPage> {
                           borderRadius: BorderRadius.circular(5)),
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    
+                  },
                   child: Row(
                     children: const [
                       Icon(

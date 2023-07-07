@@ -7,7 +7,9 @@ import 'package:flutter/material.dart';
 
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:sneaker_app/Router/router.gr.dart';
+import 'package:sneaker_app/widgets/badgeCartno.dart';
 import 'package:sneaker_app/widgets/bagCard.dart';
+import 'package:lottie/lottie.dart';
 
 class CartPage extends StatefulWidget {
   const CartPage({
@@ -19,8 +21,6 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
-  var colorList = [Colors.red, Colors.green, Colors.blue];
-
   final _pageController = PageController(initialPage: 0);
   final _couponPageController = PageController(initialPage: 0);
 
@@ -93,6 +93,12 @@ class _CartPageState extends State<CartPage> {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           List<Map<String, dynamic>> bagshoes = snapshot.data!;
+          double totalAmount = 0.0;
+          for (var element in bagshoes) {
+            totalAmount =
+                totalAmount + double.parse(element["price"].toString());
+          }
+
           if (bagshoes.isEmpty) {
             return SafeArea(
               child: Container(
@@ -103,8 +109,9 @@ class _CartPageState extends State<CartPage> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        const Expanded(flex: 7, child: SizedBox()),
                         const Text(
                           "Shopping Bag",
                           style: TextStyle(
@@ -113,40 +120,43 @@ class _CartPageState extends State<CartPage> {
                             fontSize: 15,
                           ),
                         ),
-                        //const Spacer(),
-                        const SizedBox(
-                          width: 90,
+                        const Expanded(flex: 5, child: SizedBox()),
+                        Expanded(
+                          flex: 2,
+                          child: IconButton(
+                              onPressed: () {
+                                context.router.push(const WishlistRoute());
+                              },
+                              icon: const Icon(
+                                Icons.favorite_border,
+                                color: Colors.black,
+                              )),
                         ),
-                        IconButton(
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.favorite_border,
-                              color: Colors.black,
-                            ))
                       ],
                     ),
+
+                    const SizedBox(
+                      width: 90,
+                    ),
+
                     const SizedBox(
                       height: 200,
                     ),
-                    //const Icon(CupertinoIcons.cart,color: Colors.grey,size:110,),
-                    Image.asset(
-                      "assets/image/emptywish.png",
-                      color: Colors.black,
-                    ),
+                Lottie.asset('assets/lotti/emptycart.json'),
                     const Text(
                       "Your Shopping Bag Is Empty ",
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                     ),
                     const SizedBox(
-                      height: 10,
+                      height: 5,
                     ),
                     const Text(
                       "Add somthing to make me happy",
                       style: TextStyle(color: Colors.grey, fontSize: 14),
                     ),
                     const SizedBox(
-                      height: 10,
+                      height: 5,
                     ),
                     SizedBox(
                       width: 200,
@@ -163,7 +173,7 @@ class _CartPageState extends State<CartPage> {
                             ),
                           ),
                           onPressed: () {
-                        context.router.push(const AuthFlowpage());                  
+                            context.router.push(const AuthFlowpage());
                           },
                           child: const Text('Continue Shopping')),
                     ),
@@ -178,25 +188,34 @@ class _CartPageState extends State<CartPage> {
                 automaticallyImplyLeading: false,
                 title: Column(
                   children: const [
-                    Center(
-                      child: Text(
-                        "Shopping Bag",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold),
-                      ),
+                    Text(
+                      "Shopping Bag",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold),
                     ),
                     // Text()
                   ],
                 ),
                 actions: [
-                  IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.favorite_border,
-                        color: Colors.black,
-                      ))
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Row(
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            context.router.push(const WishlistRoute());
+                          },
+                          icon: const Icon(
+                            Icons.favorite_border,
+                            color: Colors.black,
+                          ),
+                        ),
+                        const BadgeCartno()
+                      ],
+                    ),
+                  )
                 ],
                 backgroundColor: Colors.grey[100],
                 elevation: 0,
@@ -445,15 +464,23 @@ class _CartPageState extends State<CartPage> {
                         itemCount: bagshoes.length,
                         itemBuilder: (context, i) {
                           Map<String, dynamic> shoe = bagshoes[i];
+
+                          log(totalAmount.toString());
+
                           // Build your UI for each shoe item
                           return BagCard(
-                              label: shoe["label"],
-                              imgurl: shoe["img_url"],
-                              brand: shoe["brand"],
-                              price: shoe["price"].toString());
+                            label: shoe["label"],
+                            imgurl: shoe["img_url"],
+                            brand: shoe["brand"],
+                            price: shoe["price"].toString(),
+                            shoe: shoe,
+                            seller: shoe["seller"],
+                            qty: shoe["qnty"],
+                            size: shoe["size"],
+                          );
                         },
                       ),
-                     
+
                       // Gifting and Personalisation
 
                       const Padding(
@@ -839,17 +866,17 @@ class _CartPageState extends State<CartPage> {
                               ),
                               const Divider(),
                               Row(
-                                children: const [
-                                  Text(
+                                children: [
+                                  const Text(
                                     'Total Amount',
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 13),
                                   ),
-                                  Spacer(),
+                                  const Spacer(),
                                   Text(
-                                    '₹ 2,304',
-                                    style: TextStyle(
+                                    "₹$totalAmount",
+                                    style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 13),
                                   )

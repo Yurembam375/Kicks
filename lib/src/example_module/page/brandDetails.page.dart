@@ -1,11 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sneaker_app/Router/router.gr.dart';
 import 'package:sneaker_app/model/search.dart';
+import 'package:sneaker_app/widgets/badgeCartno.dart';
 import 'package:sneaker_app/widgets/productCard.dart';
-import 'package:badges/badges.dart' as badges;
 
 class BrandDetailsPage extends StatelessWidget {
   final String tittle;
@@ -73,26 +72,7 @@ class BrandDetailsPage extends StatelessWidget {
                       color: Colors.black,
                     ),
                   ),
-                  badges.Badge(
-                      position: badges.BadgePosition.topEnd(top: 3, end: 7),
-                      badgeStyle: badges.BadgeStyle(
-                          badgeColor: Colors.red,
-                          elevation: 0,
-                          padding: const EdgeInsets.all(5),
-                          borderRadius: BorderRadius.circular(4)),
-                      badgeContent: const Text(
-                        "3",
-                        style: TextStyle(color: Colors.white, fontSize: 12),
-                      ),
-                      child: IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          CupertinoIcons.bag,
-                          color: Colors.black,
-                        ),
-                      ) // IconButton(
-
-                      ),
+                  const BadgeCartno()
                 ],
               ),
             )
@@ -113,7 +93,7 @@ class BrandDetailsPage extends StatelessWidget {
                   shrinkWrap: true,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       mainAxisSpacing: 2,
-                      crossAxisSpacing: 1,
+                      crossAxisSpacing: 2,
                       crossAxisCount: 2),
                   itemCount: brandShoes.length,
                   itemBuilder: (context, i) {
@@ -125,7 +105,9 @@ class BrandDetailsPage extends StatelessWidget {
                               price: shoe["price"],
                               imageUrl: shoe["img_url"],
                               brand: shoe["brand"],
-                              discription: shoe["discription"]));
+                              discription: shoe["discription"],
+                              seller: shoe["seller"],
+                              size: shoe["size"]));
                         },
                         child: ProductCard(
                           label: shoe["label"],
@@ -134,29 +116,35 @@ class BrandDetailsPage extends StatelessWidget {
                           imageUrl: shoe["img_url"],
                           brand: shoe["brand"],
                           onPressed: () async {
-                            //  logger.d(snapshot.data.toString());
-                            //logger.d(data.toString());
-                            //  logger.d(snapshot.data.toString());
-                            //   List<Map<String, dynamic>> Shoes = snapshot.data!;
-                            //  var shoes = snapshot.data;
-                            // // var shoes = ['shoes'];
-                            // var n =
-                            //     shoes!.map((e) => e).toList();
+                            //log(shoe.toString());
+                            DocumentReference documentReference =
+                                FirebaseFirestore.instance
+                                    .collection('kicks')
+                                    .doc("QzxblNC94G66oEoPteQ1");
 
-                            // int index = i; // Assuming 'i' is the index of the item being pressed
+                            // Retrieve the document snapshot
+                            DocumentSnapshot snapshot =
+                                await documentReference.get();
 
-                            // if (n[index]["is_favorite"] == true) {
-                            //   n[index]["is_favorite"] = false;
-                            // } else {
-                            //   n[index]["is_favorite"] = true;
-                            // }
-                            // DocumentReference documentReference = FirebaseFirestore
-                            //     .instance
-                            //     .collection('kicks')
-                            //     .doc("Eij2GhftqXuZ7bt0iEF0");
-
-                            // // Update the document in Firestore
-                            // await documentReference.update({'shoes': n});
+                            if (snapshot.exists) {
+                              // Get the 'shoes' array from the snapshot data
+                              List<dynamic> shoes = snapshot.get('shoes');
+                              for (var element in shoes) {
+                                if (element["product_Id"] ==
+                                    shoe["product_Id"]) {
+                                  //log(shoes.toString());
+                                  int productindex = shoes.indexOf(element);
+                                  if (shoes[productindex]["is_favorite"] ==
+                                      true) {
+                                    shoes[productindex]["is_favorite"] = false;
+                                  } else {
+                                    shoes[productindex]["is_favorite"] = true;
+                                  }
+                                  await documentReference
+                                      .update({'shoes': shoes});
+                                }
+                              }
+                            }
                           },
                         ));
                   },

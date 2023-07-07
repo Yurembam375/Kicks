@@ -7,41 +7,36 @@ class WishListCard extends StatelessWidget {
   final String price;
   final String imgurl;
   final String brand;
-  final VoidCallback onpressdelete;
-  
- 
-  const WishListCard(
-      {super.key,
-      required this.label,
-      required this.price,
-      required this.imgurl,
-      required this.brand, required this.onpressdelete,
-   });
+  final Map<String, dynamic> shoe;
+
+  const WishListCard({
+    super.key,
+    required this.label,
+    required this.price,
+    required this.imgurl,
+    required this.brand,
+    required this.shoe,
+  });
 
   Future<void> deleteproduct() async {
     // Get a reference to the Firestore document
     DocumentReference documentReference = FirebaseFirestore.instance
         .collection('kicks')
         .doc("QzxblNC94G66oEoPteQ1");
-
     // Retrieve the document snapshot
     DocumentSnapshot snapshot = await documentReference.get();
 
     if (snapshot.exists) {
       // Get the 'shoes' array from the snapshot data
       List<dynamic> shoes = snapshot.get('shoes');
+      //  Find the index of the product in the list based on the productId
 
-    //  Find the index of the product in the list based on the productId
-      int index = shoes.indexWhere((shoe) {
-        return shoe['is_favorite'] == true;
-      });
-
-      if (index != -1) {
-        // Update the 'is_favorite' field for the specific product
-        shoes[index]['is_favorite'] = false;
-
-        // Update the document in Firestore
-        await documentReference.update({'shoes': shoes});
+      for (var element in shoes) {
+        if (element["product_Id"] == shoe["product_Id"]) {
+          int productindex = shoes.indexOf(element);
+          shoes[productindex]['is_favorite'] = false;
+          await documentReference.update({'shoes': shoes});
+        }
       }
     }
   }
@@ -58,32 +53,12 @@ class WishListCard extends StatelessWidget {
     if (snapshot.exists) {
       // Get the 'shoes' array from the snapshot data
       List<dynamic> shoes = snapshot.get('shoes');
-
-      // Find the index of the product in the list based on the productId
-      int index = shoes.indexWhere((shoe) {
-        return shoe['is_favorite'] == true;
-      });
-
-      // shoes.map((e) {
-      //   if (e["is_favorite"] == true) {
-      //     log(e.toString());
-      //     var d = shoes.indexOf(e);
-      //     log(d.toString());
-      //   //  e["is_favorite"][d] == false;
-      //   if(d == e["is_favorite"]){
-      //     shoes[e]["is_favorite"]= false;
-      //   }
-      //   }
-      // }).toList();
-
-      // await documentReference.update({"shoes": shoes});
-      if (index != -1) {
-        // Update the 'is_favorite' field for the specific product
-        //shoes[index]['is_favorite'] = false;
-        shoes[index]["add_to_bag"] = true;
-        //logger.d(shoes[index]["add_to_bag"] = true);
-        // Update the document in Firestore
-        await documentReference.update({'shoes': shoes});
+      for (var element in shoes) {
+        if (element["product_Id"] == shoe["product_Id"]) {
+          int productindex = shoes.indexOf(element);
+          shoes[productindex]['add_to_bag'] = true;
+          await documentReference.update({'shoes': shoes});
+        }
       }
     }
   }
@@ -107,10 +82,10 @@ class WishListCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   IconButton(
-                    // onPressed: () async {
-                    //   await deleteproduct();
-                    // },
-                    onPressed: onpressdelete,
+                    onPressed: () async {
+                      await deleteproduct();
+                      // log(shoe.toString());
+                    },
                     icon: Container(
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
@@ -200,10 +175,7 @@ class WishListCard extends StatelessWidget {
                   highlightColor: Colors.grey,
                   splashColor: Colors.grey,
                   onPressed: () async {
-                   
-                    // logger.d(index);
-                   await movetoBag().whenComplete(() => deleteproduct());
-                    // movetoBag();
+                    await movetoBag().whenComplete(() => deleteproduct());
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,

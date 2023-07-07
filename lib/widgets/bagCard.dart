@@ -7,13 +7,21 @@ class BagCard extends StatefulWidget {
   final String imgurl;
   final String brand;
   final String price;
+  final Map<String, dynamic> shoe;
+  final String seller;
+  final List<dynamic> size;
+  final List<dynamic> qty;
 
   const BagCard(
       {super.key,
       required this.label,
       required this.imgurl,
       required this.brand,
-      required this.price});
+      required this.price,
+      required this.shoe,
+      required this.seller,
+      required this.size,
+      required this.qty});
 
   @override
   State<BagCard> createState() => _BagCardState();
@@ -41,25 +49,19 @@ class _BagCardState extends State<BagCard> {
     DocumentReference documentReference = FirebaseFirestore.instance
         .collection('kicks')
         .doc("QzxblNC94G66oEoPteQ1");
-
     // Retrieve the document snapshot
     DocumentSnapshot snapshot = await documentReference.get();
 
     if (snapshot.exists) {
       // Get the 'shoes' array from the snapshot data
       List<dynamic> shoes = snapshot.get('shoes');
-
-      // Find the index of the product in the list based on the productId
-      int index = shoes.indexWhere((shoe) {
-        return shoe['add_to_bag'] == true;
-      });
-
-      if (index != -1) {
-        // Update the 'is_favorite' field for the specific product
-        shoes[index]['add_to_bag'] = false;
-
-        // Update the document in Firestore
-        await documentReference.update({'shoes': shoes});
+      //  Find the index of the product in the list based on the productId
+      for (var element in shoes) {
+        if (element["product_Id"] == widget.shoe["product_Id"]) {
+          int productIndex = shoes.indexOf(element);
+          shoes[productIndex]["add_to_bag"] = false;
+          await documentReference.update({"shoes": shoes});
+        }
       }
     }
   }
@@ -121,6 +123,7 @@ class _BagCardState extends State<BagCard> {
                                     fontWeight: FontWeight.bold),
                               ),
                               InkWell(
+                                  splashColor: Colors.black,
                                   onTap: () async {
                                     await deleteproductfrombag();
                                   },
@@ -149,10 +152,10 @@ class _BagCardState extends State<BagCard> {
                           padding: const EdgeInsets.symmetric(horizontal: 3),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
-                            children: const [
+                            children:  [
                               Text(
-                                "Sold by:S&S Marketing",
-                                style: TextStyle(
+                                "Sold by:${widget.seller}",
+                                style: const TextStyle(
                                   color: Colors.black,
                                 ),
                               ),
@@ -268,6 +271,9 @@ class _BagCardState extends State<BagCard> {
                             ),
                           ],
                         ),
+                        const SizedBox(
+                          height: 3,
+                        ),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 3),
                           child: Row(
@@ -307,7 +313,7 @@ class _BagCardState extends State<BagCard> {
           ),
           Positioned(
             top: 1,
-            left: 1,
+            left: 4,
             child: Transform.scale(
               scale: 0.8,
               child: Checkbox(

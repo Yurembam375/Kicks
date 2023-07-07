@@ -15,7 +15,6 @@ class _ProfilePageState extends State<ProfilePage> {
   String? email;
   @override
   void initState() {
-    // TODO: implement initState
     getUser();
     super.initState();
   }

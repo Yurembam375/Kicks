@@ -1,161 +1,349 @@
-
-  {
-          "shoes": [
-            {
-              "add_to_bag": false,
-              "brand": "Jordan",
-              "is_favorite": false,
-              "product": "1",
-              "label": "Air Jordan",
-              "price": "10,599",
-              "img_url":
-                  "https://firebasestorage.googleapis.com/v0/b/sneaker-app-a434e.appspot.com/o/jordans4.png?alt=media&token=d4c3f0ab-cdf9-4595-a228-3eef6f1080cf",
-              "description":
-                  "Follow in the footsteps of greatness. The all-time classic AJ1 design gets a makeover with fresh pops of colour and mixed materials"
-            },
-            {
-              "add_to_bag": false,
-              "brand": "Jordan",
-              "is_favorite": false,
-              "product_Id": "2",
-              "label": "Air Jordan",
-              "price": "8,415",
-              "img_url":
-                  "https://firebasestorage.googleapis.com/v0/b/sneaker-app-a434e.appspot.com/o/jordans5.png?alt=media&token=0bcb60f7-70b6-4bb1-b484-f5503829b2bd",
-              "description":
-                  "Follow in the footsteps of greatness. The all-time classic AJ1 design gets a makeover with fresh pops of colour and mixed materials"
-            },
-            {
-              "add_to_bag": false,
-              "brand": "Jordan",
-              "is_favorite": false,
-              "product_Id": "3",
-              "label": "Air Jordan",
-              "price": "9,206",
-              "img_url":
-                  "https://firebasestorage.googleapis.com/v0/b/sneaker-app-a434e.appspot.com/o/nike1.png?alt=media&token=b3bc12d8-2273-49f9-910c-e3062a7ebe1a",
-              "description":
-                  "Follow in the footsteps of greatness. The all-time classic AJ1 design gets a makeover with fresh pops of colour and mixed materials"
-            },
-            {
-              "add_to_bag": false,
-              "brand": "Nike",
-              "is_favorite": false,
-              "product_Id": "4",
-              "label": "Air Force",
-              "price": "8,999",
-              "img_url":
-                  "https://firebasestorage.googleapis.com/v0/b/sneaker-app-a434e.appspot.com/o/af3.png?alt=media&token=c54fc94a-505c-458f-8d4c-6edc1cb2fce1",
-              "description":
-                  "Follow in the footsteps of greatness. The all-time classic AJ1 design gets a makeover with fresh pops of colour and mixed materials"
-            },
-            {
-              "add_to_bag": false,
-              "brand": "Nike",
-              "is_favorite": false,
-              "product_Id": "5",
-              "label": "Air Force",
-              "price": "6,999",
-              "img_url":
-                  "https://firebasestorage.googleapis.com/v0/b/sneaker-app-a434e.appspot.com/o/af1.png?alt=media&token=7519b846-4a47-437b-85a3-7d2abf342dd6",
-              "description":
-                  "Get back to the past with these coveted retros. Celebrating the '85 original, they bring back the shape that started the off-court revolution. With classic details and throwback hoops flair, they let you channel vintage style back onto the streets. The padded, high-top collar means you can take your game anywhere—in comfort."
-            },
-            {
-              "add_to_bag": false,
-              "brand": "Nike",
-              "is_favorite": false,
-              "product_Id": "6",
-              "label": "Air Force",
-              "price": "7,599",
-              "img_url":
-                  "https://firebasestorage.googleapis.com/v0/b/sneaker-app-a434e.appspot.com/o/af2.png?alt=media&token=a7768b92-c20c-4fac-87f4-c48dfc48bb78",
-              "description":
-                  "Get back to the past with these coveted retros. Celebrating the '85 original, they bring back the shape that started the off-court revolution. With classic details and throwback hoops flair, they let you channel vintage style back onto the streets. The padded, high-top collar means you can take your game anywhere—in comfort."
-            },
-            {
-              "add_to_bag": false,
-              "brand": "Jordan",
-              "is_favorite": false,
-              "product_Id": "7",
-              "label": "Air Jordan",
-              "price": "9,999",
-              "img_url":
-                  "https://firebasestorage.googleapis.com/v0/b/sneaker-app-a434e.appspot.com/o/jordans3.png?alt=media&token=9524b6a6-739e-456f-993d-f47aba377e9a",
-              "description":
-                  "Follow in the footsteps of greatness. The all-time classic AJ1 design gets a makeover with fresh pops of colour and mixed materials"
-            },
-            {
-              "add_to_bag": false,
-              "brand": "Addidas",
-              "is_favorite": false,
-              "product_Id": "8",
-              "label": "Superstar",
-              "price": "4,499",
-              "img_url":
-                  "https://firebasestorage.googleapis.com/v0/b/sneaker-app-a434e.appspot.com/o/sneak-removebg-preview.png?alt=media&token=8bea1efe-ba39-4ee9-94e3-b7d94c15043d",
-              "description":
-                  "The Adidas Originals Superstar features 20 special editions. This shoe comes in four distinct ranges; the Men’s Adidas Superstar, Women’s Adidas Superstar, Kids Adidas Superstar, and the Adidas trainers."
-            },
-            {
-              "add_to_bag": false,
-              "brand": "Addidas",
-              "is_favorite": false,
-              "product_Id": "9",
-              "label": "Superstar",
-              "price": "6,599",
-              "img_url":
-                  "https://firebasestorage.googleapis.com/v0/b/sneaker-app-a434e.appspot.com/o/s-l640-removebg-preview.png?alt=media&token=634f1f78-b3cb-48be-b3fb-ecb1d4a73795",
-              "description":
-                  "The Adidas Originals Superstar features 20 special editions. This shoe comes in four distinct ranges; the Men’s Adidas Superstar, Women’s Adidas Superstar, Kids Adidas Superstar, and the Adidas trainers."
-            },
-            {
-              "add_to_bag": false,
-              "brand": "Reebok",
-              "is_favorite": false,
-              "product_Id": "10",
-              "label": "Az Sneaker",
-              "price": "₹4,999",
-              "img_url":
-                  "https://firebasestorage.googleapis.com/v0/b/sneaker-app-a434e.appspot.com/o/rebook.png?alt=media&token=9e511b42-13cb-4ec5-8934-90da15ef08a8",
-              "description":
-                  "When choosing the right shoe, consider its durability, breathability, support and stability, style, and price. Make sure to test the shoe in-store before purchasing it to ensure a proper fit and get value for your money"
-            },
-            {
-              "add_to_bag": false,
-              "brand": "Reebok",
-              "is_favorite": false,
-              "product_Id": "10",
-              "label": "Reebok Running Shoes",
-              "price": "5,499",
-              "img_url":
-                  "https://firebasestorage.googleapis.com/v0/b/sneaker-app-a434e.appspot.com/o/reebok-removebg-preview.png?alt=media&token=c15c00d7-dab3-4eaa-9ab4-264d8f4e6f30",
-              "description":
-                  "When choosing the right shoe, consider its durability, breathability, support and stability, style, and price. Make sure to test the shoe in-store before purchasing it to ensure a proper fit and get value for your money"
-            },
-            {
-              "add_to_bag": false,
-              "brand": "Puma",
-              "is_favorite": false,
-              "product_Id": "11",
-              "label": "New Puma",
-              "price": "2,499",
-              "img_url":
-                  "https://firebasestorage.googleapis.com/v0/b/sneaker-app-a434e.appspot.com/o/puma-removebg-preview.png?alt=media&token=ccb43228-3593-4d6f-8fd4-656e9f4a9307",
-              "description":
-                  "Puma footwear on sale - a wide range of latest collection on branded men sports & casual shoes. Free Shipping, Cash On Delivery, Easy Returns & Exchange."
-            },
-            {
-              "add_to_bag": false,
-              "brand": "Puma",
-              "is_favorite": false,
-              "product_Id": "12",
-              "label": "New Puma",
-              "price": "4,499",
-              "img_url":
-                  "https://firebasestorage.googleapis.com/v0/b/sneaker-app-a434e.appspot.com/o/puma).png?alt=media&token=0da8ad94-e38f-4336-802e-6056ed2e8b40",
-              "description":
-                  "Puma footwear on sale - a wide range of latest collection on branded men sports & casual shoes. Free Shipping, Cash On Delivery, Easy Returns & Exchange."
-            }
-          ]
+{
+    "shoes": [
+        {
+            "add_to_bag": false,
+            "brand": "Jordan",
+            "is_favorite": false,
+            "product_Id": "1",
+            "label": "Air Jordan",
+            "price": "10599",
+            "img_url": "https://firebasestorage.googleapis.com/v0/b/sneaker-app-a434e.appspot.com/o/jordans4.png?alt=media&token=d4c3f0ab-cdf9-4595-a228-3eef6f1080cf",
+            "description": "Follow in the footsteps of greatness. The all-time classic AJ1 design gets a makeover with fresh pops of colour and mixed materials",
+            "seller": "Abc Footwear",
+            "size": [
+                "6",
+                "7",
+                "8",
+                "9"
+            ],
+            "offer": "20",
+            "qnty": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5"
+            ],
+            "is_returnable": false
+        },
+        {
+            "add_to_bag": false,
+            "brand": "Jordan",
+            "is_favorite": false,
+            "product_Id": "2",
+            "label": "Air Jordan",
+            "price": "8415",
+            "img_url": "https://firebasestorage.googleapis.com/v0/b/sneaker-app-a434e.appspot.com/o/jordans5.png?alt=media&token=0bcb60f7-70b6-4bb1-b484-f5503829b2bd",
+            "description": "Follow in the footsteps of greatness. The all-time classic AJ1 design gets a makeover with fresh pops of colour and mixed materials",
+            "seller": "Tommy Footwear",
+            "size": [
+                "9",
+                "7",
+                "9"
+            ],
+            "offer": "20",
+            "qnty": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5"
+            ],
+            "is_returnable": false
+        },
+        {
+            "add_to_bag": false,
+            "brand": "Jordan",
+            "is_favorite": false,
+            "product_Id": "3",
+            "label": "Air Jordan",
+            "price": "9206",
+            "img_url": "https://firebasestorage.googleapis.com/v0/b/sneaker-app-a434e.appspot.com/o/nike1.png?alt=media&token=b3bc12d8-2273-49f9-910c-e3062a7ebe1a",
+            "description": "Follow in the footsteps of greatness. The all-time classic AJ1 design gets a makeover with fresh pops of colour and mixed materials",
+            "seller": "Lollapola Footwear",
+            "size": [
+                "6",
+                "7",
+                "8",
+                "9"
+            ],
+            "offer": "20",
+            "qnty": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5"
+            ],
+            "is_returnable": false
+        },
+        {
+            "add_to_bag": false,
+            "brand": "Nike",
+            "is_favorite": false,
+            "product_Id": "4",
+            "label": "Air Force",
+            "price": "8999",
+            "img_url": "https://firebasestorage.googleapis.com/v0/b/sneaker-app-a434e.appspot.com/o/af3.png?alt=media&token=c54fc94a-505c-458f-8d4c-6edc1cb2fce1",
+            "description": "Follow in the footsteps of greatness. The all-time classic AJ1 design gets a makeover with fresh pops of colour and mixed materials",
+            "seller": "Yurembam Enterprise",
+            "size": [
+                "9",
+                "7",
+                
+                "8",
+                "9",
+                "10",
+                "11"
+            ],
+            "offer": "20",
+            "qnty": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5"
+            ],
+            "is_returnable": false
+        },
+        {
+            "add_to_bag": false,
+            "brand": "Nike",
+            "is_favorite": false,
+            "product_Id": "5",
+            "label": "Air Force",
+            "price": "6999",
+            "img_url": "https://firebasestorage.googleapis.com/v0/b/sneaker-app-a434e.appspot.com/o/af1.png?alt=media&token=7519b846-4a47-437b-85a3-7d2abf342dd6",
+            "description": "Get back to the past with these coveted retros. Celebrating the '85 original, they bring back the shape that started the off-court revolution. With classic details and throwback hoops flair, they let you channel vintage style back onto the streets. The padded, high-top collar means you can take your game anywhere—in comfort.",
+            "seller": "Getways Footwear",
+            "size": [
+                "5",
+                "6",
+                "7",
+                "8",
+                "9"
+            ],
+            "offer": "20",
+            "qnty": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5"
+            ],
+            "is_returnable": false
+        },
+        {
+            "add_to_bag": false,
+            "brand": "Nike",
+            "is_favorite": false,
+            "product_Id": "6",
+            "label": "Air Force",
+            "price": "7599",
+            "img_url": "https://firebasestorage.googleapis.com/v0/b/sneaker-app-a434e.appspot.com/o/af2.png?alt=media&token=a7768b92-c20c-4fac-87f4-c48dfc48bb78",
+            "description": "Get back to the past with these coveted retros. Celebrating the '85 original, they bring back the shape that started the off-court revolution. With classic details and throwback hoops flair, they let you channel vintage style back onto the streets. The padded, high-top collar means you can take your game anywhere—in comfort.",
+            "seller": "Baye Branded",
+            "size": [
+                "8",
+                "7",
+                "8",
+                "9",
+                "10"
+            ],
+            "offer": "20",
+            "qnty": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5"
+            ],
+            "is_returnable": false
+        },
+        {
+            "add_to_bag": false,
+            "brand": "Jordan",
+            "is_favorite": false,
+            "product_Id": "7",
+            "label": "Air Jordan",
+            "price": "9999",
+            "img_url": "https://firebasestorage.googleapis.com/v0/b/sneaker-app-a434e.appspot.com/o/jordans3.png?alt=media&token=9524b6a6-739e-456f-993d-f47aba377e9a",
+            "description": "Follow in the footsteps of greatness. The all-time classic AJ1 design gets a makeover with fresh pops of colour and mixed materials",
+            "seller": "Abc Footwear",
+            "size": [
+                "6",
+                "7",
+                "8",
+                "9"
+            ],
+            "offer": "20",
+            "qnty": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5"
+            ],
+            "is_returnable": false
+        },
+        {
+            "add_to_bag": false,
+            "brand": "Addidas",
+            "is_favorite": false,
+            "product_Id": "8",
+            "label": "Superstar",
+            "price": "4499",
+            "img_url": "https://firebasestorage.googleapis.com/v0/b/sneaker-app-a434e.appspot.com/o/sneak-removebg-preview.png?alt=media&token=8bea1efe-ba39-4ee9-94e3-b7d94c15043d",
+            "description": "The Adidas Originals Superstar features 20 special editions. This shoe comes in four distinct ranges; the Men’s Adidas Superstar, Women’s Adidas Superstar, Kids Adidas Superstar, and the Adidas trainers.",
+            "seller": "All branded Store Manipur",
+            "size": [
+                "6",
+                "7",
+                "8",
+                "9",
+                "10"
+            ],
+            "offer": "20",
+            "qnty": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5"
+            ],
+            "is_returnable": false
+        },
+        {
+            "add_to_bag": false,
+            "brand": "Addidas",
+            "is_favorite": false,
+            "product_Id": "9",
+            "label": "Superstar",
+            "price": "6599",
+            "img_url": "https://firebasestorage.googleapis.com/v0/b/sneaker-app-a434e.appspot.com/o/s-l640-removebg-preview.png?alt=media&token=634f1f78-b3cb-48be-b3fb-ecb1d4a73795",
+            "description": "The Adidas Originals Superstar features 20 special editions. This shoe comes in four distinct ranges; the Men’s Adidas Superstar, Women’s Adidas Superstar, Kids Adidas Superstar, and the Adidas trainers.",
+            "seller": "Leopold Foodwear India LLP",
+            "size": [
+                "6",
+                "7",
+                "8",
+                "9"
+            ],
+            "offer": "20",
+            "qnty": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5"
+            ],
+            "is_returnable": false
+        },
+        {
+            "add_to_bag": false,
+            "brand": "Reebok",
+            "is_favorite": false,
+            "product_Id": "10",
+            "label": "Az Sneaker",
+            "price": "4999",
+            "img_url": "https://firebasestorage.googleapis.com/v0/b/sneaker-app-a434e.appspot.com/o/rebook.png?alt=media&token=9e511b42-13cb-4ec5-8934-90da15ef08a8",
+            "description": "When choosing the right shoe, consider its durability, breathability, support and stability, style, and price. Make sure to test the shoe in-store before purchasing it to ensure a proper fit and get value for your money",
+            "seller": "Baye Branded",
+            "size": [
+                "6",
+                "8",
+                "9"
+            ],
+            "offer": "20",
+            "qnty": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5"
+            ],
+            "is_returnable": false
+        },
+        {
+            "add_to_bag": false,
+            "brand": "Reebok",
+            "is_favorite": false,
+            "product_Id": "11",
+            "label": "Reebok Running Shoes",
+            "price": "5499",
+            "img_url": "https://firebasestorage.googleapis.com/v0/b/sneaker-app-a434e.appspot.com/o/reebok-removebg-preview.png?alt=media&token=c15c00d7-dab3-4eaa-9ab4-264d8f4e6f30",
+            "description": "When choosing the right shoe, consider its durability, breathability, support and stability, style, and price. Make sure to test the shoe in-store before purchasing it to ensure a proper fit and get value for your money",
+            "seller": "All branded Store Manipur",
+            "size": [
+                "6",
+                "7",
+                "8",
+                "9"
+            ],
+            "offer": "20",
+            "qnty": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5"
+            ],
+            "is_returnable": false
+        },
+        {
+            "add_to_bag": false,
+            "brand": "Puma",
+            "is_favorite": false,
+            "product_Id": "12",
+            "label": "New Puma",
+            "price": "2499",
+            "img_url": "https://firebasestorage.googleapis.com/v0/b/sneaker-app-a434e.appspot.com/o/puma-removebg-preview.png?alt=media&token=ccb43228-3593-4d6f-8fd4-656e9f4a9307",
+            "description": "Puma footwear on sale - a wide range of latest collection on branded men sports & casual shoes. Free Shipping, Cash On Delivery, Easy Returns & Exchange.",
+            "seller": "Getways Footwear",
+            "size": [
+                "6",
+                "7",
+                "8",
+                "9"
+            ],
+            "offer": "20",
+            "qnty": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5"
+            ],
+            "is_returnable": false
+        },
+        {
+            "add_to_bag": false,
+            "brand": "Puma",
+            "is_favorite": false,
+            "product_Id": "13",
+            "label": "New Puma",
+            "price": "4499",
+            "img_url": "https://firebasestorage.googleapis.com/v0/b/sneaker-app-a434e.appspot.com/o/puma).png?alt=media&token=0da8ad94-e38f-4336-802e-6056ed2e8b40",
+            "description": "Puma footwear on sale - a wide range of latest collection on branded men sports & casual shoes. Free Shipping, Cash On Delivery, Easy Returns & Exchange.",
+            "seller": "Leopold Foodwear India LLP",
+            "size": [
+                "6",
+                "7",
+                "8",
+                "9",
+                "10",
+                "11",
+                "12"
+            ],
+            "offer": "20",
+            "qnty": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5"
+            ],
+            "is_returnable": false
         }
+    ]
+}
