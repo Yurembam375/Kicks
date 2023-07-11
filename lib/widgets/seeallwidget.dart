@@ -68,7 +68,7 @@ class SeeAllwidget extends StatelessWidget {
 
                       // Update the document in
                       await documentReference.update({'shoes': n});
-                    },
+                    }, offer:d[0]['shoes'][i]["offer"] ,
                   ),
                 );
               },

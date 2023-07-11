@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -11,8 +14,12 @@ class BagCard extends StatefulWidget {
   final String seller;
   final List<dynamic> size;
   final List<dynamic> qty;
+  final String offer;
+  final bool isretunable;
+  String selectedSize;
+  String selectQTy;
 
-  const BagCard(
+  BagCard(
       {super.key,
       required this.label,
       required this.imgurl,
@@ -21,7 +28,11 @@ class BagCard extends StatefulWidget {
       required this.shoe,
       required this.seller,
       required this.size,
-      required this.qty});
+      required this.qty,
+      required this.offer,
+      required this.isretunable,
+      required this.selectQTy,
+      required this.selectedSize});
 
   @override
   State<BagCard> createState() => _BagCardState();
@@ -29,20 +40,6 @@ class BagCard extends StatefulWidget {
 
 class _BagCardState extends State<BagCard> {
   bool isChecked = false;
-  String selectedsize = '6';
-  String selectedQty = '1';
-
-  List<String> size = [
-    '6',
-    '7',
-    '8',
-    '9',
-    '10',
-    '11',
-    "12",
-  ];
-
-  List<String> qty = ['1', '2', '3', '4', '5', '6', "7", "8", "9"];
 
   Future<void> deleteproductfrombag() async {
     // Get a reference to the Firestore document
@@ -66,8 +63,60 @@ class _BagCardState extends State<BagCard> {
     }
   }
 
+  Future<void> updateSelectedSize() async {
+    // Get a reference to the Firestore document
+    DocumentReference documentReference = FirebaseFirestore.instance
+        .collection('kicks')
+        .doc("QzxblNC94G66oEoPteQ1");
+    // Retrieve the document snapshot
+    DocumentSnapshot snapshot = await documentReference.get();
+
+    if (snapshot.exists) {
+      // Get the 'shoes' array from the snapshot data
+      List<dynamic> shoes = snapshot.get('shoes');
+      //  Find the index of the product in the list based on the productId
+      for (var element in shoes) {
+        if (element["product_Id"] == widget.shoe["product_Id"]) {
+          int productIndex = shoes.indexOf(element);
+          shoes[productIndex]["selectedSize"] = widget.selectedSize;
+          await documentReference.update({"shoes": shoes});
+        }
+      }
+    }
+  }
+
+  Future<void> updateSelectedQty() async {
+    // Get a reference to the Firestore document
+    DocumentReference documentReference = FirebaseFirestore.instance
+        .collection('kicks')
+        .doc("QzxblNC94G66oEoPteQ1");
+    // Retrieve the document snapshot
+    DocumentSnapshot snapshot = await documentReference.get();
+
+    if (snapshot.exists) {
+      // Get the 'shoes' array from the snapshot data
+      List<dynamic> shoes = snapshot.get('shoes');
+      //  Find the index of the product in the list based on the productId
+      for (var element in shoes) {
+        if (element["product_Id"] == widget.shoe["product_Id"]) {
+          int productIndex = shoes.indexOf(element);
+          shoes[productIndex]["selectesQty"] = widget.selectQTy;
+          await documentReference.update({"shoes": shoes});
+        }
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
+    double offer = double.parse(widget.price.toString()) *
+        double.parse(widget.selectQTy.toString()) *
+        double.parse(widget.offer.toString()) /
+        double.parse(100.toString());
+    double newPrice = double.parse(widget.price.toString()) *
+            double.parse(widget.selectQTy.toString()) -
+        double.parse(offer.toString());
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 4),
       child: Stack(
@@ -152,7 +201,7 @@ class _BagCardState extends State<BagCard> {
                           padding: const EdgeInsets.symmetric(horizontal: 3),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
-                            children:  [
+                            children: [
                               Text(
                                 "Sold by:${widget.seller}",
                                 style: const TextStyle(
@@ -183,90 +232,310 @@ class _BagCardState extends State<BagCard> {
                           ),
                         ),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Container(
-                              padding: const EdgeInsets.all(10),
-                              height: 35,
-                              width: 220,
-                              color: Colors.orangeAccent.withOpacity(0.1),
-                              child: Row(
-                                children: [
-                                  const Text(
-                                    "Size:",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  const SizedBox(
-                                    width: 3,
-                                  ),
-                                  DropdownButton(
-                                    alignment: Alignment.centerLeft,
-                                    menuMaxHeight: 300,
-                                    underline: Container(
-                                      color: Colors.transparent,
+                            Expanded(
+                              child: GestureDetector(
+                                onTap: () {
+                                  showModalBottomSheet(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(0),
                                     ),
-                                    elevation: 0,
-                                    icon: const Icon(
-                                      Icons.arrow_drop_down,
-                                      size: 20,
-                                      color: Colors.black,
-                                    ),
-                                    items: size.map((String items) {
-                                      return DropdownMenuItem<String>(
-                                          value: items,
-                                          child: Text(
-                                            items,
-                                            style: const TextStyle(
-                                                fontWeight: FontWeight.bold),
-                                          ));
-                                    }).toList(),
-                                    value: selectedsize,
-                                    onChanged: (String? newvalue) {
-                                      setState(() {
-                                        selectedsize = newvalue!;
-                                      });
+                                    context: context,
+                                    builder: (context) {
+                                      int tabIndex = widget.size
+                                          .indexOf(widget.selectedSize);
+
+                                      return StatefulBuilder(
+                                        builder: (context, setState) {
+                                          return SizedBox(
+                                            height: 140,
+                                            width: screenSize.width,
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                const Padding(
+                                                  padding: EdgeInsets.only(
+                                                      left: 15, top: 10),
+                                                  child: Text(
+                                                    'Select size',
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  height: 75,
+                                                  // color: Colors.green,
+                                                  width: screenSize.width,
+                                                  child: ListView.builder(
+                                                    itemCount:
+                                                        widget.size.length,
+                                                    scrollDirection:
+                                                        Axis.horizontal,
+                                                    shrinkWrap: true,
+                                                    padding: const EdgeInsets
+                                                        .fromLTRB(10, 3, 15, 7),
+                                                    itemBuilder:
+                                                        (context, index) {
+                                                      return Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .only(left: 5),
+                                                        child: GestureDetector(
+                                                          onTap: () {
+                                                            setState(() {
+                                                              widget.selectedSize =
+                                                                  widget.size[
+                                                                      index];
+                                                              tabIndex = index;
+                                                              log(widget
+                                                                  .selectedSize
+                                                                  .toString());
+                                                              context.router
+                                                                  .pop();
+                                                            });
+                                                          },
+                                                          child: Container(
+                                                            height: 50,
+                                                            width: 50,
+                                                            decoration: BoxDecoration(
+                                                                color: index ==
+                                                                        tabIndex
+                                                                    ? Colors
+                                                                        .black
+                                                                    : Colors
+                                                                        .transparent,
+                                                                border: Border.all(
+                                                                    color: Colors
+                                                                        .black),
+                                                                shape: BoxShape
+                                                                    .circle),
+                                                            child: Center(
+                                                                child: Text(
+                                                              widget
+                                                                  .size[index],
+                                                              style: TextStyle(
+                                                                color: index ==
+                                                                        tabIndex
+                                                                    ? Colors
+                                                                        .white
+                                                                    : Colors
+                                                                        .black,
+                                                              ),
+                                                            )),
+                                                          ),
+                                                        ),
+                                                      );
+                                                    },
+                                                  ),
+                                                ),
+                                                GestureDetector(
+                                                  onTap: () async {
+                                                    Navigator.pop(context);
+                                                    await updateSelectedSize();
+                                                  },
+                                                  child: Container(
+                                                    height: 37,
+                                                    width: screenSize.width,
+                                                    color:
+                                                        const Color(0xfff4456e),
+                                                    child: const Center(
+                                                        child: Text(
+                                                      'Done',
+                                                      style: TextStyle(
+                                                          color: Colors.white),
+                                                    )),
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          );
+                                        },
+                                      );
                                     },
+                                  );
+                                },
+
+                                // Size Small Grey Container
+
+                                child: Container(
+                                  padding: EdgeInsets.zero,
+                                  height: 25,
+                                  decoration: BoxDecoration(
+                                    color: const Color(0xfff4f4f4),
+                                    borderRadius: BorderRadius.circular(4),
                                   ),
-                                  const Text(
-                                    "Qty:",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  const SizedBox(
-                                    width: 3,
-                                  ),
-                                  DropdownButton(
-                                    alignment: Alignment.centerLeft,
-                                    menuMaxHeight: 300,
-                                    underline: Container(
-                                      color: Colors.transparent,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 5),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text('Size:${widget.selectedSize}'),
+                                        const Icon(
+                                            Icons.arrow_drop_down_outlined)
+                                      ],
                                     ),
-                                    elevation: 0,
-                                    icon: const Icon(
-                                      Icons.arrow_drop_down,
-                                      size: 20,
-                                      color: Colors.black,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 15),
+
+                            //  Quantity of items
+
+                            Expanded(
+                              child: GestureDetector(
+                                onTap: () {
+                                  showModalBottomSheet(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(0),
                                     ),
-                                    items: qty.map((String items) {
-                                      return DropdownMenuItem<String>(
-                                          value: items,
-                                          child: Text(
-                                            items,
-                                            style: const TextStyle(
-                                                fontWeight: FontWeight.bold),
-                                          ));
-                                    }).toList(),
-                                    value: selectedQty,
-                                    onChanged: (String? newvalue) {
-                                      setState(() {
-                                        selectedQty = newvalue!;
-                                      });
+                                    context: context,
+                                    builder: (context) {
+                                      int tabIndex =
+                                          widget.qty.indexOf(widget.selectQTy);
+                                      log(tabIndex.toString());
+
+                                      return StatefulBuilder(
+                                        builder: (context, setState) {
+                                          return SizedBox(
+                                            height: 140,
+                                            width: screenSize.width,
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                const Padding(
+                                                  padding: EdgeInsets.only(
+                                                      left: 15, top: 10),
+                                                  child: Text(
+                                                    'Select Quantity',
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  height: 75,
+                                                  // color: Colors.green,
+                                                  width: screenSize.width,
+                                                  child: ListView.builder(
+                                                    itemCount:
+                                                        widget.qty.length,
+                                                    scrollDirection:
+                                                        Axis.horizontal,
+                                                    shrinkWrap: true,
+                                                    padding: const EdgeInsets
+                                                        .fromLTRB(10, 3, 15, 7),
+                                                    itemBuilder:
+                                                        (context, index) {
+                                                      log(widget.qty.length
+                                                          .toString());
+                                                      return Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .only(left: 5),
+                                                        child: GestureDetector(
+                                                          onTap: () {
+                                                            setState(() {
+                                                              widget.selectQTy =
+                                                                  widget.qty[
+                                                                      index];
+                                                              tabIndex = index;
+                                                              log(widget
+                                                                  .selectQTy
+                                                                  .toString());
+                                                              context.router
+                                                                  .pop();
+                                                            });
+                                                          },
+                                                          child: Container(
+                                                            height: 50,
+                                                            width: 50,
+                                                            decoration: BoxDecoration(
+                                                                color: index ==
+                                                                        tabIndex
+                                                                    ? Colors
+                                                                        .black
+                                                                    : Colors
+                                                                        .transparent,
+                                                                border: Border.all(
+                                                                    color: Colors
+                                                                        .black),
+                                                                shape: BoxShape
+                                                                    .circle),
+                                                            child: Center(
+                                                                child: Text(
+                                                              widget.qty[index]
+                                                                  .toString(),
+                                                              style: TextStyle(
+                                                                color: index ==
+                                                                        tabIndex
+                                                                    ? Colors
+                                                                        .white
+                                                                    : Colors
+                                                                        .black,
+                                                              ),
+                                                            )),
+                                                          ),
+                                                        ),
+                                                      );
+                                                    },
+                                                  ),
+                                                ),
+                                                GestureDetector(
+                                                  onTap: () async {
+                                                    Navigator.pop(context);
+                                                    await updateSelectedQty();
+                                                  },
+                                                  child: Container(
+                                                    height: 37,
+                                                    width: screenSize.width,
+                                                    color:
+                                                        const Color(0xfff4456e),
+                                                    child: const Center(
+                                                        child: Text(
+                                                      'Done',
+                                                      style: TextStyle(
+                                                          color: Colors.white),
+                                                    )),
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          );
+                                        },
+                                      );
                                     },
+                                  );
+                                },
+
+                                // Size Small Grey Container
+
+                                child: Container(
+                                  padding: EdgeInsets.zero,
+                                  height: 25,
+                                  decoration: BoxDecoration(
+                                    color: const Color(0xfff4f4f4),
+                                    borderRadius: BorderRadius.circular(4),
                                   ),
-                                ],
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 5),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text('Qty:${widget.selectQTy}'),
+                                        const Icon(
+                                            Icons.arrow_drop_down_outlined)
+                                      ],
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
                           ],
@@ -279,27 +548,33 @@ class _BagCardState extends State<BagCard> {
                           child: Row(
                             children: [
                               Text(
-                                "₹${widget.price}",
+                                "₹$newPrice",
                                 style: const TextStyle(
                                     fontWeight: FontWeight.bold),
                               ),
                               const SizedBox(
-                                width: 4,
+                                width: 6,
                               ),
-                              Text(
-                                "₹${widget.price}",
-                                style: const TextStyle(
-                                    decoration: TextDecoration.lineThrough,
-                                    color: Colors.black54),
+                              Visibility(
+                                visible: widget.offer == "0" ? false : true,
+                                child: Text(
+                                  "₹${widget.price}",
+                                  style: const TextStyle(
+                                      decoration: TextDecoration.lineThrough,
+                                      color: Colors.black54),
+                                ),
                               ),
                               const SizedBox(
-                                width: 4,
+                                width: 6,
                               ),
-                              const Text(
-                                "₹500 OFF",
-                                style: TextStyle(
-                                    color: Colors.redAccent,
-                                    fontWeight: FontWeight.bold),
+                              Visibility(
+                                visible: widget.offer == "0" ? false : true,
+                                child: Text(
+                                  "${widget.offer}%OFF",
+                                  style: const TextStyle(
+                                      color: Colors.redAccent,
+                                      fontWeight: FontWeight.bold),
+                                ),
                               )
                             ],
                           ),

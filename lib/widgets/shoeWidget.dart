@@ -71,7 +71,7 @@ class ShoeWidget extends StatelessWidget {
 
                     // Update the document in Firestore
                     await documentReference.update({'shoes': n});
-                  },
+                  }, offer: d[0]['shoes'][i]["offer"],
                 ),
               );
             },

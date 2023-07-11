@@ -19,7 +19,9 @@ class DetailsPage extends StatefulWidget {
     required this.brand,
     required this.discription,
     required this.price,
-    required this.imageUrl, required this.seller, required this.size,
+    required this.imageUrl,
+    required this.seller,
+    required this.size,
   });
 
   @override
@@ -109,7 +111,7 @@ class _DetailsPageState extends State<DetailsPage> {
                       Icons.favorite_border,
                       color: Colors.black,
                     )),
-           const BadgeCartno()
+                const BadgeCartno()
               ],
             ),
           )
@@ -411,7 +413,7 @@ class _DetailsPageState extends State<DetailsPage> {
                         },
                       )),
 
-                      //Size widget
+                  //Size widget
                   Row(
                     children: [
                       Text(
@@ -442,7 +444,7 @@ class _DetailsPageState extends State<DetailsPage> {
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    children:  [
+                    children: [
                       const Text(
                         "Seller: ",
                         style: TextStyle(color: Colors.black54, fontSize: 12.5),
@@ -863,14 +865,14 @@ class _DetailsPageState extends State<DetailsPage> {
             child: Center(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Text(
+                children: [
+                  const Text(
                     "Seller: ",
                     style: TextStyle(color: Colors.black54, fontSize: 12.5),
                   ),
                   Text(
-                    "Leopold Foodwear India LLP",
-                    style: TextStyle(
+                    widget.seller,
+                    style: const TextStyle(
                         color: Colors.redAccent,
                         fontWeight: FontWeight.bold,
                         fontSize: 13),
@@ -901,7 +903,10 @@ class _DetailsPageState extends State<DetailsPage> {
                         color: Colors.black,
                         size: 17,
                       ),
-                      Text("  WISHLISTED")
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Text("WISHLISTED")
                     ],
                   ),
                 ),
@@ -910,20 +915,16 @@ class _DetailsPageState extends State<DetailsPage> {
                 width: 150,
                 child: ElevatedButton(
                   style: ButtonStyle(
-                    backgroundColor:
-                        const MaterialStatePropertyAll(
-                          Colors.black
-                         // Color(0xffff406c)
-                          ),
+                    backgroundColor: const MaterialStatePropertyAll(Colors.black
+                        // Color(0xffff406c)
+                        ),
                     side: const MaterialStatePropertyAll(BorderSide.none),
                     shape: MaterialStatePropertyAll(
                       RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5)),
                     ),
                   ),
-                  onPressed: () {
-                    
-                  },
+                  onPressed: () {},
                   child: Row(
                     children: const [
                       Icon(
@@ -931,8 +932,11 @@ class _DetailsPageState extends State<DetailsPage> {
                         color: Colors.white,
                         size: 17,
                       ),
+                      SizedBox(
+                        width: 5,
+                      ),
                       Text(
-                        "   ADD TO BAG",
+                        "ADD TO BAG",
                         style: TextStyle(color: Colors.white),
                       )
                     ],

@@ -7,6 +7,7 @@ class ProductCard extends StatelessWidget {
   final String price;
   final bool is_favorite;
   final String brand;
+  final String offer;
 
   final VoidCallback onPressed;
 
@@ -18,13 +19,19 @@ class ProductCard extends StatelessWidget {
       required this.is_favorite,
       required this.imageUrl,
       required this.onPressed,
-      required this.brand});
+      required this.brand,
+      required this.offer});
   @override
   Widget build(BuildContext context) {
     return card();
   }
 
   Container card() {
+    double offeramount = double.parse(price.toString()) *
+        double.parse(offer.toString()) /
+        double.parse(100.toString());
+    double newPrice =
+        double.parse(price.toString()) - double.parse(offeramount.toString());
     return Container(
       height: 150,
       decoration: BoxDecoration(
@@ -94,22 +101,34 @@ class ProductCard extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 5),
                 child: Row(
                   children: [
-                    Text("₹$price",
+                    Text("₹$newPrice",
                         style:
                             const TextStyle(color: Colors.black, fontSize: 11)),
-                    Text(
-                      "  ₹$price",
-                      style: const TextStyle(
-                        color: Colors.grey,
-                        fontSize: 11,
-                        decoration: TextDecoration.lineThrough,
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    Visibility(
+                      visible: offer == "0"? false :  true,
+                      child: Text(
+                        "₹$price",
+                        style: const TextStyle(
+                          color: Colors.grey,
+                          fontSize: 11,
+                          decoration: TextDecoration.lineThrough,
+                        ),
                       ),
                     ),
-                    Text(
-                      " (20% OFF)",
-                      style: TextStyle(
-                        color: Colors.redAccent.withOpacity(0.8),
-                        fontSize: 10,
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    Visibility(
+                      visible: offer == "0"? false :  true,
+                      child: Text(
+                        "$offer%OFF",
+                        style: TextStyle(
+                          color: Colors.redAccent.withOpacity(0.8),
+                          fontSize: 10,
+                        ),
                       ),
                     )
                   ],

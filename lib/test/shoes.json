@@ -16,7 +16,7 @@
                 "8",
                 "9"
             ],
-            "offer": "20",
+            "offer": "50",
             "qnty": [
                 "1",
                 "2",
@@ -24,7 +24,9 @@
                 "4",
                 "5"
             ],
-            "is_returnable": false
+            "is_returnable": false,
+            "selectedSize": "6",
+            "selectesQty": "1"
         },
         {
             "add_to_bag": false,
@@ -39,9 +41,10 @@
             "size": [
                 "9",
                 "7",
-                "9"
+                "10",
+                "11"
             ],
-            "offer": "20",
+            "offer": "0",
             "qnty": [
                 "1",
                 "2",
@@ -49,7 +52,9 @@
                 "4",
                 "5"
             ],
-            "is_returnable": false
+            "is_returnable": false,
+            "selectedSize": "9",
+            "selectesQty": "1"
         },
         {
             "add_to_bag": false,
@@ -67,7 +72,7 @@
                 "8",
                 "9"
             ],
-            "offer": "20",
+            "offer": "30",
             "qnty": [
                 "1",
                 "2",
@@ -75,7 +80,9 @@
                 "4",
                 "5"
             ],
-            "is_returnable": false
+            "is_returnable": false,
+            "selectedSize": "6",
+            "selectesQty": "1"
         },
         {
             "add_to_bag": false,
@@ -90,13 +97,12 @@
             "size": [
                 "9",
                 "7",
-                
                 "8",
                 "9",
                 "10",
                 "11"
             ],
-            "offer": "20",
+            "offer": "10",
             "qnty": [
                 "1",
                 "2",
@@ -104,7 +110,9 @@
                 "4",
                 "5"
             ],
-            "is_returnable": false
+            "is_returnable": false,
+            "selectedSize": "9",
+            "selectesQty": "1"
         },
         {
             "add_to_bag": false,
@@ -117,13 +125,13 @@
             "description": "Get back to the past with these coveted retros. Celebrating the '85 original, they bring back the shape that started the off-court revolution. With classic details and throwback hoops flair, they let you channel vintage style back onto the streets. The padded, high-top collar means you can take your game anywhere—in comfort.",
             "seller": "Getways Footwear",
             "size": [
-                "5",
                 "6",
                 "7",
                 "8",
-                "9"
+                "9",
+                "10"
             ],
-            "offer": "20",
+            "offer": "0",
             "qnty": [
                 "1",
                 "2",
@@ -131,7 +139,9 @@
                 "4",
                 "5"
             ],
-            "is_returnable": false
+            "is_returnable": false,
+            "selectedSize": "6",
+            "selectesQty": "1"
         },
         {
             "add_to_bag": false,
@@ -144,13 +154,13 @@
             "description": "Get back to the past with these coveted retros. Celebrating the '85 original, they bring back the shape that started the off-court revolution. With classic details and throwback hoops flair, they let you channel vintage style back onto the streets. The padded, high-top collar means you can take your game anywhere—in comfort.",
             "seller": "Baye Branded",
             "size": [
-                "8",
+                "6",
                 "7",
                 "8",
                 "9",
                 "10"
             ],
-            "offer": "20",
+            "offer": "0",
             "qnty": [
                 "1",
                 "2",
@@ -158,7 +168,9 @@
                 "4",
                 "5"
             ],
-            "is_returnable": false
+            "is_returnable": false,
+            "selectedSize": "6",
+            "selectesQty": "1"
         },
         {
             "add_to_bag": false,
@@ -176,7 +188,7 @@
                 "8",
                 "9"
             ],
-            "offer": "20",
+            "offer": "30",
             "qnty": [
                 "1",
                 "2",
@@ -184,7 +196,9 @@
                 "4",
                 "5"
             ],
-            "is_returnable": false
+            "is_returnable": false,
+            "selectedSize": "6",
+            "selectesQty": "1"
         },
         {
             "add_to_bag": false,
@@ -203,7 +217,7 @@
                 "9",
                 "10"
             ],
-            "offer": "20",
+            "offer": "10",
             "qnty": [
                 "1",
                 "2",
@@ -211,7 +225,9 @@
                 "4",
                 "5"
             ],
-            "is_returnable": false
+            "is_returnable": false,
+            "selectedSize": "6",
+            "selectesQty": "1"
         },
         {
             "add_to_bag": false,
@@ -237,7 +253,9 @@
                 "4",
                 "5"
             ],
-            "is_returnable": false
+            "is_returnable": false,
+            "selectedSize": "6",
+            "selectesQty": "1"
         },
         {
             "add_to_bag": false,
@@ -254,7 +272,7 @@
                 "8",
                 "9"
             ],
-            "offer": "20",
+            "offer": "50",
             "qnty": [
                 "1",
                 "2",
@@ -262,7 +280,9 @@
                 "4",
                 "5"
             ],
-            "is_returnable": false
+            "is_returnable": false,
+            "selectedSize": "6",
+            "selectesQty": "1"
         },
         {
             "add_to_bag": false,
@@ -280,7 +300,7 @@
                 "8",
                 "9"
             ],
-            "offer": "20",
+            "offer": "5",
             "qnty": [
                 "1",
                 "2",
@@ -288,7 +308,9 @@
                 "4",
                 "5"
             ],
-            "is_returnable": false
+            "is_returnable": false,
+            "selectedSize": "6",
+            "selectesQty": "1"
         },
         {
             "add_to_bag": false,
@@ -306,7 +328,7 @@
                 "8",
                 "9"
             ],
-            "offer": "20",
+            "offer": "0",
             "qnty": [
                 "1",
                 "2",
@@ -314,7 +336,9 @@
                 "4",
                 "5"
             ],
-            "is_returnable": false
+            "is_returnable": false,
+            "selectedSize": "6",
+            "selectesQty": "1"
         },
         {
             "add_to_bag": false,
@@ -335,7 +359,7 @@
                 "11",
                 "12"
             ],
-            "offer": "20",
+            "offer": "0",
             "qnty": [
                 "1",
                 "2",
@@ -343,7 +367,9 @@
                 "4",
                 "5"
             ],
-            "is_returnable": false
+            "is_returnable": false,
+            "selectedSize": "6",
+            "selectesQty": "1"
         }
     ]
 }

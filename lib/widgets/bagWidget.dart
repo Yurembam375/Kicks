@@ -82,9 +82,14 @@ class BagWidget extends StatelessWidget {
                   imgurl: shoe["img_url"],
                   brand: shoe["brand"],
                   price: shoe["price"].toString(),
-                  shoe: shoe, seller: shoe["seller"],
+                  shoe: shoe,
+                  seller: shoe["seller"],
                   qty: shoe["qty"],
                   size: shoe["size"],
+                  isretunable: shoe["is_returnable"],
+                  offer: shoe["offer"],
+                  selectQTy: shoe["selectedSize"],
+                  selectedSize: shoe["selectesQty"],
                 );
               },
             );

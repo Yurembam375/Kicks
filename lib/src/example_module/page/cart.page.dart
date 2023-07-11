@@ -94,11 +94,19 @@ class _CartPageState extends State<CartPage> {
         if (snapshot.hasData) {
           List<Map<String, dynamic>> bagshoes = snapshot.data!;
           double totalAmount = 0.0;
+          double totalMRP = 0.0;
+          double totalOffer = double.parse(0.0.toStringAsFixed(2));
           for (var element in bagshoes) {
-            totalAmount =
-                totalAmount + double.parse(element["price"].toString());
+            totalMRP = totalMRP +
+                double.parse(element["price"].toString()) *
+                    double.parse(element["selectesQty"].toString());
+            totalOffer = totalOffer +
+                double.parse(element["price"].toString()) *
+                    double.parse(element["offer"].toString()) *
+                    double.parse(element["selectesQty"].toString()) /
+                    double.parse(100.toString());
           }
-
+          totalAmount = totalMRP - totalOffer;
           if (bagshoes.isEmpty) {
             return SafeArea(
               child: Container(
@@ -134,15 +142,13 @@ class _CartPageState extends State<CartPage> {
                         ),
                       ],
                     ),
-
                     const SizedBox(
                       width: 90,
                     ),
-
                     const SizedBox(
                       height: 200,
                     ),
-                Lottie.asset('assets/lotti/emptycart.json'),
+                    Lottie.asset('assets/lotti/emptycart.json'),
                     const Text(
                       "Your Shopping Bag Is Empty ",
                       style:
@@ -477,6 +483,10 @@ class _CartPageState extends State<CartPage> {
                             seller: shoe["seller"],
                             qty: shoe["qnty"],
                             size: shoe["size"],
+                            isretunable: shoe["is_returnable"],
+                            offer: shoe["offer"].toString(),
+                            selectQTy: shoe["selectesQty"],
+                            selectedSize: shoe["selectedSize"],
                           );
                         },
                       ),
@@ -794,28 +804,28 @@ class _CartPageState extends State<CartPage> {
                               ),
                               const Divider(),
                               Row(
-                                children: const [
-                                  Text(
+                                children: [
+                                  const Text(
                                     'Total MRP',
                                     style: TextStyle(fontSize: 12.5),
                                   ),
-                                  Spacer(),
+                                  const Spacer(),
                                   Text(
-                                    '₹ 7,354',
-                                    style: TextStyle(fontSize: 12.5),
+                                    "₹ $totalMRP",
+                                    style: const TextStyle(fontSize: 12.5),
                                   )
                                 ],
                               ),
                               Row(
-                                children: const [
-                                  Text(
+                                children: [
+                                  const Text(
                                     'Discount on MRP',
                                     style: TextStyle(fontSize: 12.5),
                                   ),
-                                  Spacer(),
+                                  const Spacer(),
                                   Text(
-                                    '₹ -5,060',
-                                    style: TextStyle(
+                                    "₹ $totalOffer",
+                                    style: const TextStyle(
                                         color: Colors.green, fontSize: 12.5),
                                   )
                                 ],
@@ -859,7 +869,7 @@ class _CartPageState extends State<CartPage> {
                                   ),
                                   const Spacer(),
                                   const Text(
-                                    '₹10',
+                                    'Free',
                                     style: TextStyle(fontSize: 12.5),
                                   ),
                                 ],

@@ -86,6 +86,7 @@ class WishlistWidget extends StatelessWidget {
                   imgurl: shoe["img_url"],
                   brand: shoe["brand"],
                   shoe: shoe,
+                  offer: shoe["offer"],
                 );
               },
             );

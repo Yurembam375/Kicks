@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class WishListCard extends StatelessWidget {
   final String label;
@@ -8,6 +9,7 @@ class WishListCard extends StatelessWidget {
   final String imgurl;
   final String brand;
   final Map<String, dynamic> shoe;
+  final String offer;
 
   const WishListCard({
     super.key,
@@ -16,6 +18,7 @@ class WishListCard extends StatelessWidget {
     required this.imgurl,
     required this.brand,
     required this.shoe,
+    required this.offer,
   });
 
   Future<void> deleteproduct() async {
@@ -69,6 +72,11 @@ class WishListCard extends StatelessWidget {
   }
 
   Container card() {
+    double offeramount = double.parse(price.toString()) *
+        double.parse(offer.toString()) /
+        double.parse(100.toString());
+    double newPrice =
+        double.parse(price.toString()) - double.parse(offeramount.toString());
     return Container(
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
@@ -141,21 +149,33 @@ class WishListCard extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 5),
                 child: Row(
                   children: [
-                    Text("₹$price",
+                    Text("₹$newPrice",
                         style:
                             const TextStyle(color: Colors.black, fontSize: 11)),
-                    Text(
-                      " ₹$price",
-                      style: const TextStyle(
-                          color: Colors.grey,
-                          fontSize: 11,
-                          decoration: TextDecoration.lineThrough),
+                    const SizedBox(
+                      width: 5,
                     ),
-                    Text(
-                      " (20% OFF)",
-                      style: TextStyle(
-                          color: Colors.redAccent.withOpacity(0.8),
-                          fontSize: 10),
+                    Visibility(
+                      visible: offer == "0"? false :  true,
+                      child: Text(
+                        "₹$price",
+                        style: const TextStyle(
+                            color: Colors.grey,
+                            fontSize: 11,
+                            decoration: TextDecoration.lineThrough),
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    Visibility(
+                      visible: offer == "0"? false :  true,
+                      child: Text(
+                        "$offer%OFF ",
+                        style: TextStyle(
+                            color: Colors.redAccent.withOpacity(0.8),
+                            fontSize: 10),
+                      ),
                     )
                   ],
                 ),
@@ -175,7 +195,10 @@ class WishListCard extends StatelessWidget {
                   highlightColor: Colors.grey,
                   splashColor: Colors.grey,
                   onPressed: () async {
-                    await movetoBag().whenComplete(() => deleteproduct());
+                    EasyLoading.showSuccess("Sucessfully to added to Cart");
+                    await movetoBag()
+                        .whenComplete(() => deleteproduct());
+                        
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,

@@ -105,7 +105,7 @@ class BrandDetailsPage extends StatelessWidget {
                               price: shoe["price"],
                               imageUrl: shoe["img_url"],
                               brand: shoe["brand"],
-                              discription: shoe["discription"],
+                              discription: shoe["description"],
                               seller: shoe["seller"],
                               size: shoe["size"]));
                         },
@@ -146,6 +146,7 @@ class BrandDetailsPage extends StatelessWidget {
                               }
                             }
                           },
+                          offer: shoe["offer"],
                         ));
                   },
                 );
