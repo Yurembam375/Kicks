@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 part 'authflow_state.dart';
@@ -32,10 +33,12 @@ class AuthflowCubit extends Cubit<AuthflowState> {
   }
 
   Future<void> signOut() async {
+    await GoogleSignIn().signOut();
     await FirebaseAuth.instance.signOut().then((value) async {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.remove("accountStatus");
       emit(const AuthflowState(status: Status.logout));
+
     });
   }
 

@@ -26,25 +26,6 @@ class _CartPageState extends State<CartPage> {
 
   bool isChecked = false;
 
-  // Initial Selected Value
-  String initialSize = '6';
-
-  // List of sizes in our dropdown menu
-  var sizes = [
-    '6',
-    '7',
-    '8',
-    '9',
-    '10',
-  ];
-
-  // Initial Selected Value
-  String initialQuantity = '1';
-
-  // List of quantities in our dropdown menu
-  var quantity =
-      List<String>.generate(9, (index) => String.fromCharCode(index + 49));
-
   void getCheckBoxValue(bool value) {
     if (isChecked == false) {
       // Put your code here which you want to execute on CheckBox Checked.
