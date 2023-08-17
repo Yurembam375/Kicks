@@ -42,7 +42,7 @@ class BadgeCartno extends StatelessWidget {
           return badges.Badge(
             position: badges.BadgePosition.topEnd(top: 3, end: 7),
             badgeStyle: badges.BadgeStyle(
-                badgeColor:bagshoes.isEmpty ? Colors.transparent : Colors.red,
+                badgeColor: bagshoes.isEmpty ? Colors.transparent : Colors.red,
                 elevation: 0,
                 padding: const EdgeInsets.all(5),
                 borderRadius: BorderRadius.circular(4)),
@@ -53,7 +53,15 @@ class BadgeCartno extends StatelessWidget {
                   fontSize: 12),
             ),
             child: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  // context.pushRoute(const AuthFlowpage(children: [
+                  //   DashboardRoute(children: [CartRoute()])
+                  // ]));
+                //   Navigator.push(
+                //     context,
+                //     MaterialPageRoute(builder: (context) => const CartPage()),
+                //   );
+                },
                 icon: const Icon(
                   CupertinoIcons.bag,
                   color: Colors.black,

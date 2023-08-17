@@ -312,8 +312,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 142),
+              Center(
                 child: SmoothPageIndicator(
                   controller: controller,
                   count: 3,

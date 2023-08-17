@@ -26,8 +26,9 @@ import 'package:sneaker_app/src/example_module/page/wishlist.page.dart';
     AutoRoute(page: OtpPage),
     AutoRoute(page: GetStartedPage),
     AutoRoute(page: SeeallPage),
-    AutoRoute(page:BrandDetailsPage, ),
-    // AutoRoute(page: AuthPage)
+    AutoRoute(
+      page: BrandDetailsPage,
+    ),    // AutoRoute(page: AuthPage)
 
     AutoRoute(
       page: AuthFlowpage,

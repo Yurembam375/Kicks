@@ -1,6 +1,9 @@
+
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:sneaker_app/widgets/badgeCartno.dart';
 
@@ -12,6 +15,8 @@ class DetailsPage extends StatefulWidget {
   final String imageUrl;
   final String seller;
   final List<dynamic> size;
+  final String offer;
+  final Map<String, dynamic> shoe;
 
   const DetailsPage({
     super.key,
@@ -22,6 +27,8 @@ class DetailsPage extends StatefulWidget {
     required this.imageUrl,
     required this.seller,
     required this.size,
+    required this.offer,
+    required this.shoe,
   });
 
   @override
@@ -29,33 +36,31 @@ class DetailsPage extends StatefulWidget {
 }
 
 class _DetailsPageState extends State<DetailsPage> {
-  //final List<Map<String, dynamic>> data;
   final _controller = PageController();
 
-  // List size = [6, 7, 8, 9, 10, 11, 12];
-
   int tabindex = 0;
-  // Future<void> movetoBag() async {
-  //   // Get a reference to the Firestore document
-  //   DocumentReference documentReference = FirebaseFirestore.instance
-  //       .collection('kicks')
-  //       .doc("QzxblNC94G66oEoPteQ1");
 
-  //   // Retrieve the document snapshot
-  //   DocumentSnapshot snapshot = await documentReference.get();
+  Future<void> addtofavorite() async {
+    // Get a reference to the Firestore document
+    DocumentReference documentReference = FirebaseFirestore.instance
+        .collection('kicks')
+        .doc("QzxblNC94G66oEoPteQ1");
 
-  //   if (snapshot.exists) {
-  //     // Get the 'shoes' array from the snapshot data
-  //     List<dynamic> shoes = snapshot.get('shoes');
-  //     for (var element in shoes) {
-  //       if (element["product_Id"] == shoe["product_Id"]) {
-  //         int productindex = shoes.indexOf(element);
-  //         shoes[productindex]['add_to_bag'] = true;
-  //         await documentReference.update({'shoes': shoes});
-  //       }
-  //     }
-  //   }
-  // }
+    // Retrieve the document snapshot
+    DocumentSnapshot snapshot = await documentReference.get();
+
+    if (snapshot.exists) {
+      // Get the 'shoes' array from the snapshot data
+      List<dynamic> shoes = snapshot.get('shoes');
+      for (var element in shoes) {
+        if (element["product_Id"] == widget.shoe["product_Id"]) {
+          int productindex = shoes.indexOf(element);
+          shoes[productindex]['is_favorite'] = true;
+          await documentReference.update({'shoes': shoes});
+        }
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -229,21 +234,25 @@ class _DetailsPageState extends State<DetailsPage> {
                           style: const TextStyle(
                               color: Colors.grey,
                               decoration: TextDecoration.lineThrough,
-                              fontSize: 12.5),
+                              fontSize: 13),
                         ),
                         const SizedBox(
                           width: 2,
                         ),
                         Text(
-                          " ₹${widget.price}",
+                          "₹${(double.parse(widget.price) * double.parse(widget.offer) / 100).toStringAsFixed(2)}",
                           style: const TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
                               fontSize: 13),
                         ),
-                        const Text(
-                          " (30%OFF)",
-                          style: TextStyle(color: Colors.red, fontSize: 10),
+                        const SizedBox(
+                          width: 3,
+                        ),
+                        Text(
+                          "(${widget.offer}%OFF)",
+                          style: const TextStyle(
+                              color: Colors.red, fontSize: 11.5),
                         )
                       ],
                     ),
@@ -267,7 +276,6 @@ class _DetailsPageState extends State<DetailsPage> {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
               color: Colors.white,
-              height: 75,
               width: double.infinity,
               child: Column(
                 children: [
@@ -417,7 +425,7 @@ class _DetailsPageState extends State<DetailsPage> {
                   Row(
                     children: [
                       Text(
-                        "₹ ${widget.price}",
+                        "₹${(double.parse(widget.price) * double.parse(widget.offer) / 100).toStringAsFixed(2)}",
                         style: const TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
@@ -433,9 +441,9 @@ class _DetailsPageState extends State<DetailsPage> {
                             decoration: TextDecoration.lineThrough,
                             fontSize: 13),
                       ),
-                      const Text(
-                        " (30%OFF)",
-                        style: TextStyle(color: Colors.red, fontSize: 10),
+                      Text(
+                        " (${widget.offer}%OFF)",
+                        style: const TextStyle(color: Colors.red, fontSize: 10),
                       )
                     ],
                   ),
@@ -895,7 +903,10 @@ class _DetailsPageState extends State<DetailsPage> {
                   animationDuration: const Duration(milliseconds: 3),
                   highlightColor: Colors.grey,
                   splashColor: Colors.grey,
-                  onPressed: () {},
+                  onPressed: () {
+                    addtofavorite().whenComplete(
+                        () => EasyLoading.showSuccess('Added to Wishlist'));
+                  },
                   child: Row(
                     children: const [
                       Icon(

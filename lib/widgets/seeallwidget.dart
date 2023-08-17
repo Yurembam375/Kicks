@@ -34,13 +34,15 @@ class SeeAllwidget extends StatelessWidget {
                 return GestureDetector(
                   onTap: () {
                     context.router.push(DetailsRoute(
+                        offer: d[0]['shoes'][i]["offer"].toString(),
                         brand: d[0]['shoes'][i]["brand"],
                         discription: d[0]['shoes'][i]["description"],
                         label: d[0]['shoes'][i]["label"],
                         price: d[0]['shoes'][i]["price"].toString(),
                         imageUrl: d[0]['shoes'][i]["img_url"],
                         seller: d[0]['shoes'][i]["seller"],
-                        size: d[0]['shoes'][i]["size"]));
+                        size: d[0]['shoes'][i]["size"],
+                        shoe: d[0]["shoes"][i]));
                   },
                   child: ProductCard(
                     label: d[0]['shoes'][i]["label"],
@@ -68,7 +70,8 @@ class SeeAllwidget extends StatelessWidget {
 
                       // Update the document in
                       await documentReference.update({'shoes': n});
-                    }, offer:d[0]['shoes'][i]["offer"] ,
+                    },
+                    offer: d[0]['shoes'][i]["offer"],
                   ),
                 );
               },

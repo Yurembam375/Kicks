@@ -101,13 +101,15 @@ class BrandDetailsPage extends StatelessWidget {
                     return GestureDetector(
                         onTap: () {
                           context.router.push(DetailsRoute(
+                              offer: shoe["offer"].toString(),
                               label: shoe["label"],
                               price: shoe["price"],
                               imageUrl: shoe["img_url"],
                               brand: shoe["brand"],
                               discription: shoe["description"],
                               seller: shoe["seller"],
-                              size: shoe["size"]));
+                              size: shoe["size"],
+                              shoe: shoe));
                         },
                         child: ProductCard(
                           label: shoe["label"],

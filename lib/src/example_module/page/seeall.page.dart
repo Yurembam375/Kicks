@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sneaker_app/widgets/badgeCartno.dart';
 import 'package:sneaker_app/widgets/seeallwidget.dart';
 import 'package:badges/badges.dart' as badges;
 
@@ -23,7 +24,7 @@ class _SeeallPageState extends State<SeeallPage> {
         backgroundColor: Colors.grey[100],
         actions: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal:5 ),
+            padding: const EdgeInsets.symmetric(horizontal: 5),
             child: Row(
               children: [
                 IconButton(
@@ -35,7 +36,7 @@ class _SeeallPageState extends State<SeeallPage> {
                     color: Colors.black,
                   ),
                 ),
-                 IconButton(
+                IconButton(
                   onPressed: () {
                     //   showSearch(context: context, delegate: MySearchDelegate());
                   },
@@ -44,44 +45,25 @@ class _SeeallPageState extends State<SeeallPage> {
                     color: Colors.black,
                   ),
                 ),
-               badges.Badge(
-                position: badges.BadgePosition.topEnd(top: 3, end: 7),
-                badgeStyle: badges.BadgeStyle(
-                    badgeColor: Colors.red,
-                    elevation: 0,
-                    padding: const EdgeInsets.all(5),
-                    borderRadius: BorderRadius.circular(4)),
-                badgeContent: const Text(
-                  "3",
-                  style: TextStyle(color: Colors.white, fontSize: 12),
-                ),
-                child: IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    CupertinoIcons.bag,
-                    color: Colors.black,
+                const BadgeCartno(),
+                badges.Badge(
+                  position: badges.BadgePosition.topEnd(top: 3, end: 7),
+                  badgeStyle: badges.BadgeStyle(
+                      badgeColor: Colors.red,
+                      elevation: 0,
+                      padding: const EdgeInsets.all(5),
+                      borderRadius: BorderRadius.circular(4)),
+                  badgeContent: const Text(
+                    "3",
+                    style: TextStyle(color: Colors.white, fontSize: 12),
                   ),
-                ) // IconButton(
-
-                ),
-            badges.Badge(
-              position: badges.BadgePosition.topEnd(top: 3, end: 7),
-              badgeStyle: badges.BadgeStyle(
-                  badgeColor: Colors.red,
-                  elevation: 0,
-                  padding: const EdgeInsets.all(5),
-                  borderRadius: BorderRadius.circular(4)),
-              badgeContent: const Text(
-                "3",
-                style: TextStyle(color: Colors.white, fontSize: 12),
-              ),
-              child: IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.notifications,
-                    color: Colors.black,
-                  )),
-            )
+                  child: IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.notifications,
+                        color: Colors.black,
+                      )),
+                )
               ],
             ),
           )

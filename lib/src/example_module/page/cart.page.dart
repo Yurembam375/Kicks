@@ -792,7 +792,7 @@ class _CartPageState extends State<CartPage> {
                                   ),
                                   const Spacer(),
                                   Text(
-                                    "₹ $totalMRP",
+                                    "₹ $totalAmount",
                                     style: const TextStyle(fontSize: 12.5),
                                   )
                                 ],

@@ -101,6 +101,8 @@ class AppRouter extends _i16.RootStackRouter {
           imageUrl: args.imageUrl,
           seller: args.seller,
           size: args.size,
+          offer: args.offer,
+          shoe: args.shoe,
         ),
       );
     },
@@ -348,6 +350,8 @@ class DetailsRoute extends _i16.PageRouteInfo<DetailsRouteArgs> {
     required String imageUrl,
     required String seller,
     required List<dynamic> size,
+    required String offer,
+    required Map<String, dynamic> shoe,
   }) : super(
           DetailsRoute.name,
           path: '/details-page',
@@ -360,6 +364,8 @@ class DetailsRoute extends _i16.PageRouteInfo<DetailsRouteArgs> {
             imageUrl: imageUrl,
             seller: seller,
             size: size,
+            offer: offer,
+            shoe: shoe,
           ),
         );
 
@@ -376,6 +382,8 @@ class DetailsRouteArgs {
     required this.imageUrl,
     required this.seller,
     required this.size,
+    required this.offer,
+    required this.shoe,
   });
 
   final _i17.Key? key;
@@ -394,9 +402,13 @@ class DetailsRouteArgs {
 
   final List<dynamic> size;
 
+  final String offer;
+
+  final Map<String, dynamic> shoe;
+
   @override
   String toString() {
-    return 'DetailsRouteArgs{key: $key, label: $label, brand: $brand, discription: $discription, price: $price, imageUrl: $imageUrl, seller: $seller, size: $size}';
+    return 'DetailsRouteArgs{key: $key, label: $label, brand: $brand, discription: $discription, price: $price, imageUrl: $imageUrl, seller: $seller, size: $size, offer: $offer, shoe: $shoe}';
   }
 }
 
