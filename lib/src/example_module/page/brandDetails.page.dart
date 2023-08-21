@@ -101,6 +101,7 @@ class BrandDetailsPage extends StatelessWidget {
                     return GestureDetector(
                         onTap: () {
                           context.router.push(DetailsRoute(
+                              selectedSize: shoe["selectedSize"].toString(),
                               offer: shoe["offer"].toString(),
                               label: shoe["label"],
                               price: shoe["price"],

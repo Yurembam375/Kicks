@@ -1,3 +1,4 @@
+import 'dart:developer';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -17,9 +18,11 @@ class DetailsPage extends StatefulWidget {
   final List<dynamic> size;
   final String offer;
   final Map<String, dynamic> shoe;
+  String selectedSize;
 
-  const DetailsPage({
+  DetailsPage({
     super.key,
+    required this.selectedSize,
     required this.label,
     required this.brand,
     required this.discription,
@@ -37,8 +40,6 @@ class DetailsPage extends StatefulWidget {
 
 class _DetailsPageState extends State<DetailsPage> {
   final _controller = PageController();
-
-  int tabindex = 0;
 
   Future<void> addtofavorite() async {
     // Get a reference to the Firestore document
@@ -62,8 +63,53 @@ class _DetailsPageState extends State<DetailsPage> {
     }
   }
 
+  Future<void> updateSelectedSize() async {
+    // Get a reference to the Firestore document
+    DocumentReference documentReference = FirebaseFirestore.instance
+        .collection('kicks')
+        .doc("QzxblNC94G66oEoPteQ1");
+    // Retrieve the document snapshot
+    DocumentSnapshot snapshot = await documentReference.get();
+
+    if (snapshot.exists) {
+      // Get the 'shoes' array from the snapshot data
+      List<dynamic> shoes = snapshot.get('shoes');
+      //  Find the index of the product in the list based on the productId
+      for (var element in shoes) {
+        if (element["product_Id"] == widget.shoe["product_Id"]) {
+          int productIndex = shoes.indexOf(element);
+          shoes[productIndex]["selectedSize"] = widget.selectedSize;
+          await documentReference.update({"shoes": shoes});
+        }
+      }
+    }
+  }
+
+  Future<void> addtobag() async {
+    // Get a reference to the Firestore document
+    DocumentReference documentReference = FirebaseFirestore.instance
+        .collection('kicks')
+        .doc("QzxblNC94G66oEoPteQ1");
+
+    // Retrieve the document snapshot
+    DocumentSnapshot snapshot = await documentReference.get();
+
+    if (snapshot.exists) {
+      // Get the 'shoes' array from the snapshot data
+      List<dynamic> shoes = snapshot.get('shoes');
+      for (var element in shoes) {
+        if (element["product_Id"] == widget.shoe["product_Id"]) {
+          int productindex = shoes.indexOf(element);
+          shoes[productindex]['add_to_bag'] = true;
+          await documentReference.update({'shoes': shoes});
+        }
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    int tabIndex = widget.size.indexOf(widget.selectedSize);
     return SafeArea(
         child: Scaffold(
       backgroundColor: Colors.grey[200],
@@ -391,7 +437,10 @@ class _DetailsPageState extends State<DetailsPage> {
                           return GestureDetector(
                             onTap: () {
                               setState(() {
-                                tabindex = index;
+                                widget.selectedSize = widget.size[index];
+                                tabIndex = index;
+
+                                log(widget.selectedSize.toString());
                               });
                             },
                             child: Padding(
@@ -401,7 +450,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                 width: 36,
                                 decoration: BoxDecoration(
                                     shape: BoxShape.circle,
-                                    color: index == tabindex
+                                    color: index == tabIndex
                                         ? Colors.black
                                         : Colors.white,
                                     border: Border.all(color: Colors.black)),
@@ -409,7 +458,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                   child: Text(
                                     widget.size[index].toString(),
                                     style: TextStyle(
-                                      color: index == tabindex
+                                      color: index == tabIndex
                                           ? Colors.white
                                           : Colors.black,
                                     ),
@@ -935,7 +984,13 @@ class _DetailsPageState extends State<DetailsPage> {
                           borderRadius: BorderRadius.circular(5)),
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    updateSelectedSize().whenComplete(() => addtobag());
+                    EasyLoading.showSuccess("Sucessfully Added To Bag");
+                    //addtobag();
+                    log(widget.selectedSize.toString());
+                    log(widget.shoe["add_to_bag"].toString());
+                  },
                   child: Row(
                     children: const [
                       Icon(

@@ -94,6 +94,7 @@ class AppRouter extends _i16.RootStackRouter {
         routeData: routeData,
         child: _i9.DetailsPage(
           key: args.key,
+          selectedSize: args.selectedSize,
           label: args.label,
           brand: args.brand,
           discription: args.discription,
@@ -343,6 +344,7 @@ class WishlistRoute extends _i16.PageRouteInfo<void> {
 class DetailsRoute extends _i16.PageRouteInfo<DetailsRouteArgs> {
   DetailsRoute({
     _i17.Key? key,
+    required String selectedSize,
     required String label,
     required String brand,
     required String discription,
@@ -357,6 +359,7 @@ class DetailsRoute extends _i16.PageRouteInfo<DetailsRouteArgs> {
           path: '/details-page',
           args: DetailsRouteArgs(
             key: key,
+            selectedSize: selectedSize,
             label: label,
             brand: brand,
             discription: discription,
@@ -375,6 +378,7 @@ class DetailsRoute extends _i16.PageRouteInfo<DetailsRouteArgs> {
 class DetailsRouteArgs {
   const DetailsRouteArgs({
     this.key,
+    required this.selectedSize,
     required this.label,
     required this.brand,
     required this.discription,
@@ -387,6 +391,8 @@ class DetailsRouteArgs {
   });
 
   final _i17.Key? key;
+
+  final String selectedSize;
 
   final String label;
 
@@ -408,7 +414,7 @@ class DetailsRouteArgs {
 
   @override
   String toString() {
-    return 'DetailsRouteArgs{key: $key, label: $label, brand: $brand, discription: $discription, price: $price, imageUrl: $imageUrl, seller: $seller, size: $size, offer: $offer, shoe: $shoe}';
+    return 'DetailsRouteArgs{key: $key, selectedSize: $selectedSize, label: $label, brand: $brand, discription: $discription, price: $price, imageUrl: $imageUrl, seller: $seller, size: $size, offer: $offer, shoe: $shoe}';
   }
 }
 

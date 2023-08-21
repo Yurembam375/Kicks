@@ -37,6 +37,7 @@ class ShoeWidget extends StatelessWidget {
               return GestureDetector(
                 onTap: () {
                   context.router.push(DetailsRoute(
+                      selectedSize: d[0]["shoes"][i]["selectedSize"].toString(),
                       offer: d[0]['shoes'][i]["offer"].toString(),
                       brand: d[0]['shoes'][i]["brand"],
                       discription: d[0]['shoes'][i]["description"],
