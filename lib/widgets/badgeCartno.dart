@@ -1,8 +1,10 @@
 // ignore: file_names
+import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:badges/badges.dart' as badges;
+import 'package:sneaker_app/Router/router.gr.dart';
 
 class BadgeCartno extends StatelessWidget {
   const BadgeCartno({super.key});
@@ -54,13 +56,7 @@ class BadgeCartno extends StatelessWidget {
             ),
             child: IconButton(
                 onPressed: () {
-                  // context.pushRoute(const AuthFlowpage(children: [
-                  //   DashboardRoute(children: [CartRoute()])
-                  // ]));
-                //   Navigator.push(
-                //     context,
-                //     MaterialPageRoute(builder: (context) => const CartPage()),
-                //   );
+     context.router.push(const AuthFlowpage(children: [DashboardRoute(children: [CartRoute()])]));
                 },
                 icon: const Icon(
                   CupertinoIcons.bag,

@@ -5,6 +5,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class BagCard extends StatefulWidget {
   final String label;
   final String imgurl;
@@ -200,7 +201,7 @@ class _BagCardState extends State<BagCard> {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 3),
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
+                         mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Text(
                                 "Sold by:${widget.seller}",
@@ -214,10 +215,10 @@ class _BagCardState extends State<BagCard> {
                         const SizedBox(
                           height: 5,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 3),
+                        const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 3),
                           child: Row(
-                            children: const [
+                            children: [
                               Icon(Icons.visibility, size: 15),
                               Text(
                                 "150",
@@ -338,8 +339,7 @@ class _BagCardState extends State<BagCard> {
                                                   child: Container(
                                                     height: 37,
                                                     width: screenSize.width,
-                                                    color:
-                                                        const Color(0xfff4456e),
+                                                    color: Colors.black,
                                                     child: const Center(
                                                         child: Text(
                                                       'Done',
@@ -495,7 +495,8 @@ class _BagCardState extends State<BagCard> {
                                                     height: 37,
                                                     width: screenSize.width,
                                                     color:
-                                                        const Color(0xfff4456e),
+                                                        //   const Color(0xfff4456e),
+                                                        Colors.black,
                                                     child: const Center(
                                                         child: Text(
                                                       'Done',
@@ -588,7 +589,7 @@ class _BagCardState extends State<BagCard> {
           ),
           Positioned(
             top: 1,
-            left: 4,
+            left: 7,
             child: Transform.scale(
               scale: 0.8,
               child: Checkbox(

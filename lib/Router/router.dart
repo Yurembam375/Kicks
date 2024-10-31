@@ -12,6 +12,7 @@ import 'package:sneaker_app/src/example_module/page/forgotPass.page.dart';
 import 'package:sneaker_app/src/example_module/page/getstarted.page.dart';
 import 'package:sneaker_app/src/example_module/page/homePage.dart';
 import 'package:sneaker_app/src/example_module/page/login.page.dart';
+import 'package:sneaker_app/src/example_module/page/ordersucessfull.dart';
 import 'package:sneaker_app/src/example_module/page/otp.page.dart';
 import 'package:sneaker_app/src/example_module/page/profile.page.dart';
 import 'package:sneaker_app/src/example_module/page/seeall.page.dart';
@@ -45,6 +46,7 @@ import 'package:sneaker_app/src/example_module/page/wishlist.page.dart';
     ),
     AutoRoute(page: WishlistPage),
     AutoRoute(page: DetailsPage),
+    AutoRoute(page: OrderSucssfull)
   ],
 )
 class $AppRouter {}

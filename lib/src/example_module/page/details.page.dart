@@ -302,9 +302,9 @@ class _DetailsPageState extends State<DetailsPage> {
                         )
                       ],
                     ),
-                    Row(
+                    const Row(
                       mainAxisAlignment: MainAxisAlignment.start,
-                      children: const [
+                      children: [
                         Text(
                           "inclusive off all taxes",
                           style:
@@ -323,11 +323,11 @@ class _DetailsPageState extends State<DetailsPage> {
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
               color: Colors.white,
               width: double.infinity,
-              child: Column(
+              child: const Column(
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    children: const [
+                    children: [
                       Text(
                         "Bank Offers",
                         style: TextStyle(
@@ -337,7 +337,7 @@ class _DetailsPageState extends State<DetailsPage> {
                       ),
                     ],
                   ),
-                  const Text(
+                  Text(
                       "Flat Rs 150 Cashback for select user or upto Rs500 Cashback on CRED pay UPI transaction . Min spend Rs 1500.Avilabale only on android device.",
                       style: TextStyle(color: Colors.black54, fontSize: 12.5))
                 ],
@@ -351,11 +351,11 @@ class _DetailsPageState extends State<DetailsPage> {
               color: Colors.white,
               height: 45,
               width: double.infinity,
-              child: Column(
+              child: const Column(
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
+                    children: [
                       Text(
                         "EMI option avilable ",
                         style: TextStyle(
@@ -372,10 +372,10 @@ class _DetailsPageState extends State<DetailsPage> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 3),
+                  SizedBox(height: 3),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    children: const [
+                    children: [
                       Text(
                         "EMI starting from ₹53/month",
                         style: TextStyle(color: Colors.black54, fontSize: 12.5),
@@ -393,9 +393,9 @@ class _DetailsPageState extends State<DetailsPage> {
               color: Colors.white,
               child: Column(
                 children: [
-                  Row(
+                  const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
+                    children: [
                       Text(
                         "Size (UK Size):",
                         style: TextStyle(
@@ -415,9 +415,9 @@ class _DetailsPageState extends State<DetailsPage> {
                   const SizedBox(
                     height: 4,
                   ),
-                  Row(
+                  const Row(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    children: const [
+                    children: [
                       Text(
                         "Body Measurement: To Fit Foot Length 26.2cm",
                         style: TextStyle(color: Colors.black54, fontSize: 12.5),
@@ -531,9 +531,9 @@ class _DetailsPageState extends State<DetailsPage> {
               width: double.infinity,
               child: Column(
                 children: [
-                  Row(
+                  const Row(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    children: const [
+                    children: [
                       Text(
                         "Check Delivery",
                         style: TextStyle(
@@ -570,8 +570,8 @@ class _DetailsPageState extends State<DetailsPage> {
                   const SizedBox(
                     height: 10,
                   ),
-                  Row(
-                    children: const [
+                  const Row(
+                    children: [
                       Icon(
                         CupertinoIcons.cube_box,
                         color: Colors.black,
@@ -595,8 +595,8 @@ class _DetailsPageState extends State<DetailsPage> {
                   const SizedBox(
                     height: 10,
                   ),
-                  Row(
-                    children: const [
+                  const Row(
+                    children: [
                       Icon(
                         Icons.money,
                         color: Colors.black,
@@ -620,8 +620,8 @@ class _DetailsPageState extends State<DetailsPage> {
                   const SizedBox(
                     height: 10,
                   ),
-                  Row(
-                    children: const [
+                  const Row(
+                    children: [
                       Icon(
                         Icons.repeat_on_rounded,
                         color: Colors.black,
@@ -642,11 +642,11 @@ class _DetailsPageState extends State<DetailsPage> {
                       ),
                     ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 35),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 35),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
-                      children: const [
+                      children: [
                         Text(
                           " might be avilable",
                           style: TextStyle(
@@ -660,8 +660,8 @@ class _DetailsPageState extends State<DetailsPage> {
                   const SizedBox(
                     height: 2,
                   ),
-                  Row(
-                    children: const [
+                  const Row(
+                    children: [
                       Icon(
                         CupertinoIcons.bag,
                         color: Colors.black,
@@ -693,11 +693,11 @@ class _DetailsPageState extends State<DetailsPage> {
               height: 150,
               width: double.infinity,
               color: Colors.white,
-              child: Column(
+              child: const Column(
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    children: const [
+                    children: [
                       Text(
                         "Product Details",
                         style: TextStyle(
@@ -709,7 +709,7 @@ class _DetailsPageState extends State<DetailsPage> {
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    children: const [
+                    children: [
                       Text(
                         "Regular styling",
                         style: TextStyle(color: Colors.black54, fontSize: 12.5),
@@ -718,7 +718,7 @@ class _DetailsPageState extends State<DetailsPage> {
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    children: const [
+                    children: [
                       Text(
                         "Slip on detail",
                         style: TextStyle(color: Colors.black54, fontSize: 12.5),
@@ -727,7 +727,7 @@ class _DetailsPageState extends State<DetailsPage> {
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    children: const [
+                    children: [
                       Text(
                         "Cushioned footbed",
                         style: TextStyle(color: Colors.black54, fontSize: 12.5),
@@ -736,19 +736,19 @@ class _DetailsPageState extends State<DetailsPage> {
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    children: const [
+                    children: [
                       Text(
                         "Warrenty:6 month",
                         style: TextStyle(color: Colors.black54, fontSize: 12.5),
                       ),
                     ],
                   ),
-                  const SizedBox(
+                  SizedBox(
                     height: 6,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    children: const [
+                    children: [
                       Text(
                         "Material & Care",
                         style: TextStyle(
@@ -760,7 +760,7 @@ class _DetailsPageState extends State<DetailsPage> {
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    children: const [
+                    children: [
                       Text(
                         "Upper material: Syntetic Suede",
                         style: TextStyle(
@@ -772,7 +772,7 @@ class _DetailsPageState extends State<DetailsPage> {
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    children: const [
+                    children: [
                       Text(
                         "Use dry cloth to remove dust",
                         style: TextStyle(color: Colors.black54, fontSize: 12.5),
@@ -956,8 +956,8 @@ class _DetailsPageState extends State<DetailsPage> {
                     addtofavorite().whenComplete(
                         () => EasyLoading.showSuccess('Added to Wishlist'));
                   },
-                  child: Row(
-                    children: const [
+                  child: const Row(
+                    children: [
                       Icon(
                         Icons.favorite_border,
                         color: Colors.black,
@@ -975,11 +975,11 @@ class _DetailsPageState extends State<DetailsPage> {
                 width: 150,
                 child: ElevatedButton(
                   style: ButtonStyle(
-                    backgroundColor: const MaterialStatePropertyAll(Colors.black
+                    backgroundColor: const WidgetStatePropertyAll(Colors.black
                         // Color(0xffff406c)
                         ),
-                    side: const MaterialStatePropertyAll(BorderSide.none),
-                    shape: MaterialStatePropertyAll(
+                    side: const WidgetStatePropertyAll(BorderSide.none),
+                    shape: WidgetStatePropertyAll(
                       RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5)),
                     ),
@@ -991,8 +991,8 @@ class _DetailsPageState extends State<DetailsPage> {
                     log(widget.selectedSize.toString());
                     log(widget.shoe["add_to_bag"].toString());
                   },
-                  child: Row(
-                    children: const [
+                  child: const Row(
+                    children: [
                       Icon(
                         CupertinoIcons.bag,
                         color: Colors.white,

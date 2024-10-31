@@ -4,12 +4,14 @@ import 'dart:developer';
 import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:sneaker_app/Router/router.gr.dart';
 import 'package:sneaker_app/widgets/badgeCartno.dart';
 import 'package:sneaker_app/widgets/bagCard.dart';
 import 'package:lottie/lottie.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CartPage extends StatefulWidget {
   const CartPage({
@@ -21,10 +23,53 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
+  String? name;
+  String? mobileno;
+  String? pincode;
+  String? address;
+  String? locality;
+  String? district;
+  String? state;
+  @override
+  void initState() {
+    getAddress();
+    super.initState();
+  }
+
+  String _paymentMethod = "Cash on Delivery";
+  getAddress() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    name = prefs.getString('name');
+    mobileno = prefs.getString('mobileno');
+    pincode = prefs.getString('pincode');
+    address = prefs.getString('address');
+    locality = prefs.getString('locality');
+    district = prefs.getString('city');
+    state = prefs.getString('state');
+    setState(() {});
+  }
+
   final _pageController = PageController(initialPage: 0);
   final _couponPageController = PageController(initialPage: 0);
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController mobilenoController = TextEditingController();
+  final TextEditingController pinController = TextEditingController();
+  final TextEditingController addressController = TextEditingController();
+  final TextEditingController locatityController = TextEditingController();
+  final TextEditingController cityController = TextEditingController();
+  final TextEditingController stateController = TextEditingController();
 
   bool isChecked = false;
+  void saveAddress() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('name', nameController.text);
+    await prefs.setString('mobileno', mobilenoController.text);
+    await prefs.setString('pincode', pinController.text);
+    await prefs.setString('address', addressController.text);
+    await prefs.setString('locality', locatityController.text);
+    await prefs.setString('city', cityController.text);
+    await prefs.setString('state', stateController.text);
+  }
 
   void getCheckBoxValue(bool value) {
     if (isChecked == false) {
@@ -65,6 +110,7 @@ class _CartPageState extends State<CartPage> {
       return bagshoes;
     });
   }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -77,6 +123,7 @@ class _CartPageState extends State<CartPage> {
           double totalAmount = 0.0;
           double totalMRP = 0.0;
           double totalOffer = double.parse(0.0.toStringAsFixed(2));
+          List productId = [];
           for (var element in bagshoes) {
             totalMRP = totalMRP +
                 double.parse(element["price"].toString()) *
@@ -86,6 +133,7 @@ class _CartPageState extends State<CartPage> {
                     double.parse(element["offer"].toString()) *
                     double.parse(element["selectesQty"].toString()) /
                     double.parse(100.toString());
+            productId.add(element["product_Id"]);
           }
           totalAmount = totalMRP - totalOffer;
           if (bagshoes.isEmpty) {
@@ -162,7 +210,10 @@ class _CartPageState extends State<CartPage> {
                           onPressed: () {
                             context.router.push(const AuthFlowpage());
                           },
-                          child: const Text('Continue Shopping')),
+                          child: const Text(
+                            'Continue Shopping',
+                            style: TextStyle(color: Colors.white),
+                          )),
                     ),
                   ],
                 ),
@@ -173,8 +224,8 @@ class _CartPageState extends State<CartPage> {
               backgroundColor: const Color(0xfff4f4f4),
               appBar: AppBar(
                 automaticallyImplyLeading: false,
-                title: Column(
-                  children: const [
+                title: const Column(
+                  children: [
                     Text(
                       "Shopping Bag",
                       style: TextStyle(
@@ -232,26 +283,32 @@ class _CartPageState extends State<CartPage> {
                                       RichText(
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
-                                        text: const TextSpan(
+                                        text: TextSpan(
                                             text: 'Deliver to: ',
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                                 color: Colors.black,
                                                 fontSize: 13),
                                             children: [
                                               TextSpan(
-                                                text: 'Tomtom Yurembam',
-                                                style: TextStyle(
+                                                text: name ?? '',
+                                                style: const TextStyle(
                                                     fontWeight:
                                                         FontWeight.bold),
                                               )
                                             ]),
                                       ),
                                       const SizedBox(height: 7),
-                                      const Text(
-                                        'Singjmei,Chongtham leikai , Imphal ',
+                                      Text(
+                                        address ?? '',
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(fontSize: 11),
+                                        style: const TextStyle(fontSize: 11),
+                                      ),
+                                      Text(
+                                        pincode ?? '',
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: const TextStyle(fontSize: 11),
                                       )
                                     ],
                                   ),
@@ -269,7 +326,291 @@ class _CartPageState extends State<CartPage> {
                                           BorderSide.none,
                                         ),
                                         elevation: MaterialStatePropertyAll(0)),
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      showModalBottomSheet(
+                                          isScrollControlled: true,
+                                          context: context,
+                                          builder: (context) {
+                                            return Padding(
+                                              padding: MediaQuery.of(context)
+                                                  .viewInsets,
+                                              child: SizedBox(
+                                                height: 450,
+                                                width: screenSize.width,
+                                                child: Padding(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(
+                                                      horizontal: 15,
+                                                      vertical: 3),
+                                                  child: Column(
+                                                    // mainAxisAlignment: MainAxisAlignment.start,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      const Text(
+                                                        "ADD ADDRESS",
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            fontSize: 18),
+                                                      ),
+                                                      const SizedBox(
+                                                        height: 5,
+                                                      ),
+                                                      SizedBox(
+                                                        height: 50,
+                                                        child: TextFormField(
+                                                          // validator: (value){
+                                                          //   if(value== null || value.isEmpty){
+                                                          //     return ""
+                                                          //   }
+                                                          //   return null;
+                                                          // },
+                                                          controller:
+                                                              nameController,
+                                                          decoration:
+                                                              InputDecoration(
+                                                            enabledBorder:
+                                                                OutlineInputBorder(
+                                                                    borderSide:
+                                                                        BorderSide(
+                                                              color: Colors.grey
+                                                                  .shade400,
+                                                            )),
+                                                            fillColor: Colors
+                                                                .grey[200],
+                                                            filled: true,
+                                                            hintText: "Name*",
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      const SizedBox(
+                                                        height: 5,
+                                                      ),
+                                                      SizedBox(
+                                                        height: 50,
+                                                        child: TextFormField(
+                                                          controller:
+                                                              mobilenoController,
+                                                          keyboardType:
+                                                              TextInputType
+                                                                  .number,
+                                                          maxLength: 10,
+                                                          decoration:
+                                                              InputDecoration(
+                                                                  enabledBorder:
+                                                                      OutlineInputBorder(
+                                                                          borderSide:
+                                                                              BorderSide(
+                                                                    color: Colors
+                                                                        .grey
+                                                                        .shade400,
+                                                                  )),
+                                                                  fillColor:
+                                                                      Colors.grey[
+                                                                          200],
+                                                                  filled: true,
+                                                                  hintText:
+                                                                      "Mobile no*",
+                                                                  counterText:
+                                                                      ""),
+                                                        ),
+                                                      ),
+                                                      const SizedBox(
+                                                        height: 5,
+                                                      ),
+                                                      SizedBox(
+                                                        height: 50,
+                                                        child: TextFormField(
+                                                          controller:
+                                                              pinController,
+                                                          maxLength: 6,
+                                                          keyboardType:
+                                                              TextInputType
+                                                                  .number,
+                                                          decoration:
+                                                              InputDecoration(
+                                                                  enabledBorder:
+                                                                      OutlineInputBorder(
+                                                                          borderSide:
+                                                                              BorderSide(
+                                                                    color: Colors
+                                                                        .grey
+                                                                        .shade400,
+                                                                  )),
+                                                                  fillColor:
+                                                                      Colors.grey[
+                                                                          200],
+                                                                  filled: true,
+                                                                  hintText:
+                                                                      "Pin Code*",
+                                                                  counterText:
+                                                                      ""),
+                                                        ),
+                                                      ),
+                                                      const SizedBox(
+                                                        height: 5,
+                                                      ),
+                                                      SizedBox(
+                                                        height: 50,
+                                                        child: TextFormField(
+                                                          controller:
+                                                              addressController,
+                                                          decoration:
+                                                              InputDecoration(
+                                                            enabledBorder:
+                                                                OutlineInputBorder(
+                                                                    borderSide:
+                                                                        BorderSide(
+                                                              color: Colors.grey
+                                                                  .shade400,
+                                                            )),
+                                                            fillColor: Colors
+                                                                .grey[200],
+                                                            filled: true,
+                                                            hintText:
+                                                                "Address(House No,Building,Street,Area)*",
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      const SizedBox(
+                                                        height: 5,
+                                                      ),
+                                                      SizedBox(
+                                                        height: 50,
+                                                        child: TextFormField(
+                                                          controller:
+                                                              locatityController,
+                                                          decoration:
+                                                              InputDecoration(
+                                                            enabledBorder:
+                                                                OutlineInputBorder(
+                                                                    borderSide:
+                                                                        BorderSide(
+                                                              color: Colors.grey
+                                                                  .shade400,
+                                                            )),
+                                                            fillColor: Colors
+                                                                .grey[200],
+                                                            filled: true,
+                                                            hintText:
+                                                                "Locatity/Town*",
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      const SizedBox(
+                                                        height: 5,
+                                                      ),
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: [
+                                                          Expanded(
+                                                            child: SizedBox(
+                                                              height: 50,
+                                                              child:
+                                                                  TextFormField(
+                                                                controller:
+                                                                    cityController,
+                                                                decoration:
+                                                                    InputDecoration(
+                                                                  enabledBorder:
+                                                                      OutlineInputBorder(
+                                                                          borderSide:
+                                                                              BorderSide(
+                                                                    color: Colors
+                                                                        .grey
+                                                                        .shade400,
+                                                                  )),
+                                                                  fillColor:
+                                                                      Colors.grey[
+                                                                          200],
+                                                                  filled: true,
+                                                                  hintText:
+                                                                      "City/District*",
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          const SizedBox(
+                                                            width: 5,
+                                                          ),
+                                                          Expanded(
+                                                            child: SizedBox(
+                                                              height: 50,
+                                                              child:
+                                                                  TextFormField(
+                                                                controller:
+                                                                    stateController,
+                                                                decoration:
+                                                                    InputDecoration(
+                                                                  enabledBorder:
+                                                                      OutlineInputBorder(
+                                                                          borderSide:
+                                                                              BorderSide(
+                                                                    color: Colors
+                                                                        .grey
+                                                                        .shade400,
+                                                                  )),
+                                                                  fillColor:
+                                                                      Colors.grey[
+                                                                          200],
+                                                                  filled: true,
+                                                                  hintText:
+                                                                      "State*",
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      const SizedBox(height: 7),
+                                                      SizedBox(
+                                                        width:
+                                                            screenSize.width *
+                                                                0.92,
+                                                        child: ElevatedButton(
+                                                            style: ButtonStyle(
+                                                              backgroundColor:
+                                                                  const MaterialStatePropertyAll(
+                                                                      Colors
+                                                                          .black),
+                                                              side:
+                                                                  const MaterialStatePropertyAll(
+                                                                      BorderSide
+                                                                          .none),
+                                                              shape:
+                                                                  MaterialStatePropertyAll(
+                                                                RoundedRectangleBorder(
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            5)),
+                                                              ),
+                                                            ),
+                                                            onPressed:
+                                                                () async {
+                                                              saveAddress();
+                                                              log(name
+                                                                  .toString());
+                                                              log(mobileno
+                                                                  .toString());
+                                                            },
+                                                            child: const Text(
+                                                              'SAVE ADDRESS',
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .white),
+                                                            )),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            );
+                                          });
+                                    },
                                     child: const Text(
                                       'CHANGE',
                                       style: TextStyle(
@@ -517,11 +858,11 @@ class _CartPageState extends State<CartPage> {
                                         topRight: Radius.circular(4),
                                         bottomRight: Radius.circular(4))),
                                 padding: const EdgeInsets.all(10),
-                                child: Column(
+                                child: const Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
-                                  children: const [
+                                  children: [
                                     Text(
                                       'Buying for a loved one ?',
                                       style: TextStyle(
@@ -543,10 +884,10 @@ class _CartPageState extends State<CartPage> {
                               flex: 1,
                               child: GestureDetector(
                                 onTap: () {},
-                                child: Column(
+                                child: const Column(
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   mainAxisAlignment: MainAxisAlignment.center,
-                                  children: const [
+                                  children: [
                                     Icon(Icons.arrow_forward_ios),
                                   ],
                                 ),
@@ -605,8 +946,8 @@ class _CartPageState extends State<CartPage> {
                                     onTap: () {
                                       log('Chatle');
                                     },
-                                    child: Row(
-                                      children: const [
+                                    child: const Row(
+                                      children: [
                                         Text(
                                           'All Coupons',
                                           style: TextStyle(
@@ -778,9 +1119,9 @@ class _CartPageState extends State<CartPage> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text(
-                                'PRICE DETAILS (3 Items)',
-                                style: TextStyle(
+                              Text(
+                                'PRICE DETAILS (${bagshoes.length} Items)',
+                                style: const TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 13),
                               ),
                               const Divider(),
@@ -879,7 +1220,101 @@ class _CartPageState extends State<CartPage> {
                       ),
 
                       // ENd of PRICE DETAILS
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: Container(
+                          width: screenSize.width,
+                          height: 200,
+                          color: Colors.white,
+                          padding: const EdgeInsets.all(15),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                'Paymet Method',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 15),
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              const Divider(),
+                              Container(
+                                height: 55,
+                                width: screenSize.width,
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(7),
+                                    border: Border.all(color: Colors.grey)),
+                                child: RadioListTile(
+                                  activeColor: Colors.black,
+                                  title: Row(
+                                    children: [
+                                      Lottie.asset(
+                                          'assets/lotti/cashondelivery.json',
+                                          width: 30),
+                                      const SizedBox(
+                                        width: 3,
+                                      ),
+                                      const Text(
+                                        "Pay On Delivery/Cash on Delivery ",
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  ),
+                                  value: "Cash on Delivery",
+                                  groupValue: _paymentMethod,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      _paymentMethod = value.toString();
+                                    });
+                                  },
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Container(
+                                height: 55,
+                                width: screenSize.width,
 
+                                // color: Colors.grey,
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(7),
+                                    border: Border.all(color: Colors.grey)),
+                                child: RadioListTile(
+                                  activeColor: Colors.black,
+                                  title: Row(
+                                    children: [
+                                      Lottie.asset('assets/lotti/upi.json',
+                                          width: 25),
+                                      const SizedBox(
+                                        width: 3,
+                                      ),
+                                      const Text(
+                                        'UPI Payment',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  ),
+                                  value: 'UPI Payment',
+                                  groupValue: _paymentMethod,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      _paymentMethod = value.toString();
+                                    });
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                       Container(
                         height: 75,
                         padding: const EdgeInsets.fromLTRB(10, 7, 10, 10),
@@ -983,8 +1418,28 @@ class _CartPageState extends State<CartPage> {
                                   borderRadius: BorderRadius.circular(5)),
                             ),
                           ),
-                          onPressed: () {},
-                          child: const Text('Place Order')),
+                          onPressed: () async {
+                            await FirebaseFirestore.instance
+                                .collection('order')
+                                .add({
+                                  'name': name,
+                                  'address': address,
+                                  "pincode": pincode,
+                                  "totalamount": totalAmount,
+                                  "numOfiteam": bagshoes.length,
+                                  "productId": productId,
+                                  "mobileno": mobileno,
+                                })
+                                .whenComplete(() => EasyLoading.showSuccess(
+                                    "Order Sucessfully",
+                                    duration: const Duration(seconds: 1)))
+                                .whenComplete(() => context.router
+                                    .push(const OrderSucssfull()));
+                          },
+                          child: const Text(
+                            'Place Order',
+                            style: TextStyle(color: Colors.white),
+                          )),
                     ),
                   ],
                 ),
