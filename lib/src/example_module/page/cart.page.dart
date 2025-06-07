@@ -8,6 +8,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:sneaker_app/Router/router.gr.dart';
+import 'package:sneaker_app/service/razorpay_service.dart';
 import 'package:sneaker_app/widgets/badgeCartno.dart';
 import 'package:sneaker_app/widgets/bagCard.dart';
 import 'package:lottie/lottie.dart';
@@ -23,6 +24,7 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
+  late RazorpayService _razorpayService;
   String? name;
   String? mobileno;
   String? pincode;
@@ -34,6 +36,25 @@ class _CartPageState extends State<CartPage> {
   void initState() {
     getAddress();
     super.initState();
+    _razorpayService = RazorpayService(context: context);
+  }
+
+  @override
+  void dispose() {
+    _razorpayService.dispose();
+    super.dispose();
+  }
+
+  // In your UI where you handle the radio button change for payment method:
+  void _onPaymentMethodChanged(String? value, double totalAmount) {
+    setState(() {
+      _paymentMethod = value!;
+    });
+
+    if (_paymentMethod == 'UPI Payment') {
+      // Trigger Razorpay payment
+      _razorpayService.startPayment(totalAmount.toInt());
+    }
   }
 
   String _paymentMethod = "Cash on Delivery";
@@ -110,7 +131,6 @@ class _CartPageState extends State<CartPage> {
       return bagshoes;
     });
   }
-  
 
   @override
   Widget build(BuildContext context) {
@@ -197,12 +217,12 @@ class _CartPageState extends State<CartPage> {
                       width: 200,
                       child: ElevatedButton(
                           style: ButtonStyle(
-                            backgroundColor: const MaterialStatePropertyAll(
+                            backgroundColor: const WidgetStatePropertyAll(
                                 //Color(0xffff406c)
                                 Colors.black),
                             side:
-                                const MaterialStatePropertyAll(BorderSide.none),
-                            shape: MaterialStatePropertyAll(
+                                const WidgetStatePropertyAll(BorderSide.none),
+                            shape: WidgetStatePropertyAll(
                               RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(5)),
                             ),
@@ -317,15 +337,14 @@ class _CartPageState extends State<CartPage> {
                                   flex: 2,
                                   child: ElevatedButton(
                                     style: const ButtonStyle(
-                                        padding: MaterialStatePropertyAll(
+                                        padding: WidgetStatePropertyAll(
                                             EdgeInsets.zero),
-                                        backgroundColor:
-                                            MaterialStatePropertyAll(
-                                                Colors.white),
-                                        side: MaterialStatePropertyAll(
+                                        backgroundColor: WidgetStatePropertyAll(
+                                            Colors.white),
+                                        side: WidgetStatePropertyAll(
                                           BorderSide.none,
                                         ),
-                                        elevation: MaterialStatePropertyAll(0)),
+                                        elevation: WidgetStatePropertyAll(0)),
                                     onPressed: () {
                                       showModalBottomSheet(
                                           isScrollControlled: true,
@@ -574,15 +593,15 @@ class _CartPageState extends State<CartPage> {
                                                         child: ElevatedButton(
                                                             style: ButtonStyle(
                                                               backgroundColor:
-                                                                  const MaterialStatePropertyAll(
+                                                                  const WidgetStatePropertyAll(
                                                                       Colors
                                                                           .black),
                                                               side:
-                                                                  const MaterialStatePropertyAll(
+                                                                  const WidgetStatePropertyAll(
                                                                       BorderSide
                                                                           .none),
                                                               shape:
-                                                                  MaterialStatePropertyAll(
+                                                                  WidgetStatePropertyAll(
                                                                 RoundedRectangleBorder(
                                                                     borderRadius:
                                                                         BorderRadius.circular(
@@ -736,7 +755,7 @@ class _CartPageState extends State<CartPage> {
                                 getCheckBoxValue(value!);
                               },
                               overlayColor:
-                                  const MaterialStatePropertyAll(Colors.white),
+                                  const WidgetStatePropertyAll(Colors.white),
                               //activeColor: const Color(0xfff4456e),
                               activeColor: Colors.black,
                               checkColor: Colors.white,
@@ -1046,21 +1065,21 @@ class _CartPageState extends State<CartPage> {
                                                   child: ElevatedButton(
                                                     style: const ButtonStyle(
                                                         padding:
-                                                            MaterialStatePropertyAll(
+                                                            WidgetStatePropertyAll(
                                                                 EdgeInsets
                                                                     .zero),
                                                         backgroundColor:
-                                                            MaterialStatePropertyAll(
+                                                            WidgetStatePropertyAll(
                                                                 Colors.white),
                                                         side:
-                                                            MaterialStatePropertyAll(
+                                                            WidgetStatePropertyAll(
                                                           BorderSide(
                                                             color: Color(
                                                                 0xfff4456e),
                                                           ),
                                                         ),
                                                         elevation:
-                                                            MaterialStatePropertyAll(
+                                                            WidgetStatePropertyAll(
                                                                 0)),
                                                     onPressed: () {},
                                                     child: const Text(
@@ -1223,95 +1242,37 @@ class _CartPageState extends State<CartPage> {
                       Padding(
                         padding: const EdgeInsets.only(top: 10),
                         child: Container(
+                          height: 55,
                           width: screenSize.width,
-                          height: 200,
-                          color: Colors.white,
-                          padding: const EdgeInsets.all(15),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                'Paymet Method',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 15),
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              const Divider(),
-                              Container(
-                                height: 55,
-                                width: screenSize.width,
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(7),
-                                    border: Border.all(color: Colors.grey)),
-                                child: RadioListTile(
-                                  activeColor: Colors.black,
-                                  title: Row(
-                                    children: [
-                                      Lottie.asset(
-                                          'assets/lotti/cashondelivery.json',
-                                          width: 30),
-                                      const SizedBox(
-                                        width: 3,
-                                      ),
-                                      const Text(
-                                        "Pay On Delivery/Cash on Delivery ",
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ],
-                                  ),
-                                  value: "Cash on Delivery",
-                                  groupValue: _paymentMethod,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      _paymentMethod = value.toString();
-                                    });
-                                  },
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(7),
+                              border: Border.all(color: Colors.grey)),
+                          child: RadioListTile(
+                            activeColor: Colors.black,
+                            title: Row(
+                              children: [
+                                Lottie.asset('assets/lotti/upi.json',
+                                    width: 25),
+                                const SizedBox(width: 3),
+                                const Text(
+                                  'UPI Payment',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
                                 ),
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              Container(
-                                height: 55,
-                                width: screenSize.width,
+                              ],
+                            ),
+                            value: 'UPI Payment',
+                            groupValue: _paymentMethod,
+                            onChanged: (value) {
+                              setState(() {
+                                _paymentMethod = value.toString();
+                              });
 
-                                // color: Colors.grey,
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(7),
-                                    border: Border.all(color: Colors.grey)),
-                                child: RadioListTile(
-                                  activeColor: Colors.black,
-                                  title: Row(
-                                    children: [
-                                      Lottie.asset('assets/lotti/upi.json',
-                                          width: 25),
-                                      const SizedBox(
-                                        width: 3,
-                                      ),
-                                      const Text(
-                                        'UPI Payment',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ],
-                                  ),
-                                  value: 'UPI Payment',
-                                  groupValue: _paymentMethod,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      _paymentMethod = value.toString();
-                                    });
-                                  },
-                                ),
-                              ),
-                            ],
+                              if (value == 'UPI Payment') {
+                                _razorpayService
+                                    .startPayment(totalAmount.toInt());
+                              }
+                            },
                           ),
                         ),
                       ),
@@ -1410,10 +1371,10 @@ class _CartPageState extends State<CartPage> {
                       child: ElevatedButton(
                           style: ButtonStyle(
                             backgroundColor:
-                                const MaterialStatePropertyAll(Colors.black),
+                                const WidgetStatePropertyAll(Colors.black),
                             side:
-                                const MaterialStatePropertyAll(BorderSide.none),
-                            shape: MaterialStatePropertyAll(
+                                const WidgetStatePropertyAll(BorderSide.none),
+                            shape: WidgetStatePropertyAll(
                               RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(5)),
                             ),

@@ -141,10 +141,10 @@ class _SignupPageState extends State<SignupPage> {
               const SizedBox(
                 height: 50,
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 1),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 1),
                 child: Row(
-                  children: const [
+                  children: [
                     Text("CREATE A NEW ACCOUNT",
                         style: TextStyle(
                             color: Colors.black,

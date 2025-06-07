@@ -118,11 +118,11 @@ class _LoginPageState extends State<LoginPage> {
                   const SizedBox(
                     height: 50,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 1),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 1),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
-                      children: const [
+                      children: [
                         Text(
                           "LOGIN",
                           style: TextStyle(
@@ -266,7 +266,7 @@ class _LoginPageState extends State<LoginPage> {
                             },
                             style: const ButtonStyle(
                                 backgroundColor:
-                                    MaterialStatePropertyAll(Colors.black)),
+                                    WidgetStatePropertyAll(Colors.black)),
                             child: const Text(
                               "LOGIN",
                               style: TextStyle(fontSize: 20),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:sneaker_app/Router/router.gr.dart';
@@ -9,6 +10,7 @@ import 'package:sneaker_app/core/cubit/authflow_cubit.dart';
 import 'firebase_options.dart';
 
 void main() async {
+    await dotenv.load(fileName: ".env");
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     statusBarBrightness: Brightness.light,
@@ -39,8 +41,8 @@ class MyApp extends StatelessWidget {
           elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyle(
             animationDuration: const Duration(microseconds: 1),
-            overlayColor: const MaterialStatePropertyAll(Colors.white38),
-            shape: MaterialStateProperty.all(RoundedRectangleBorder(
+            overlayColor: const WidgetStatePropertyAll(Colors.white38),
+            shape: WidgetStateProperty.all(RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(5)))),
       )),
       routerDelegate: _appRouter.delegate(),

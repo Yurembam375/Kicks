@@ -58,6 +58,8 @@ dependencies:
   lottie: ^2.3.2
   flutter_local_notifications: ^17.2.4
   google_sign_in: ^6.1.4
+  razorpay_flutter: ^1.4.0
+  flutter_dotenv: ^5.2.1
 
 
 
